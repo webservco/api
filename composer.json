@@ -1,0 +1,43 @@
+{
+    "name" : "webservco/api",
+    "type" : "library",
+    "description" : "A PHP RESTful API Framework",
+    "keywords" : [
+        "framework",
+        "webservco"
+    ],
+    "homepage" : "https://webserv.co",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "Radu Maier",
+            "email" : "ariademur@webserv.co"
+        }
+    ],
+    "require" : {
+        "php" : "^5.4 || ^7.0",
+        "webservco/framework" : "@dev"
+    },
+    "suggest" : {
+        "pds/skeleton" : "A standard filesystem skeleton suitable for all PHP packages.",
+        "squizlabs/php_codesniffer" : "Detects violations of a defined set of coding standards.",
+        "phpstan/phpstan" : "PHP Static Analysis Tool, when using PHP 7.x"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "WebServCo\\" : "src/WebServCo/"
+        }
+    },
+    "scripts" : {
+        "check:structure" : "pds-skeleton validate .",
+        "check" : "phpcs --standard=PSR2 --extensions=php src tests",
+        "s:1": "phpstan analyse src --level=1 --ansi -c phpstan.neon",
+        "s:2": "phpstan analyse src --level=2 --ansi -c phpstan.neon",
+        "s:3": "phpstan analyse src --level=3 --ansi -c phpstan.neon",
+        "s:4": "phpstan analyse src --level=4 --ansi -c phpstan.neon",
+        "s:5": "phpstan analyse src --level=5 --ansi -c phpstan.neon",
+        "s:6": "phpstan analyse src --level=6 --ansi -c phpstan.neon",
+        "s:7": "phpstan analyse src --level=7 --ansi -c phpstan.neon",
+        "all": "clear && composer s:7 && composer check && composer test"
+    }
+}
