@@ -18,6 +18,9 @@
         "php" : "^5.4 || ^7.0",
         "webservco/framework" : "@dev"
     },
+    "require-dev" : {
+        "phpunit/phpunit" : "~4|~5"
+    },
     "suggest" : {
         "pds/skeleton" : "A standard filesystem skeleton suitable for all PHP packages.",
         "squizlabs/php_codesniffer" : "Detects violations of a defined set of coding standards.",
@@ -29,6 +32,8 @@
         }
     },
     "scripts" : {
+        "test" : "vendor/bin/phpunit --colors=always",
+        "test:d" : "vendor/bin/phpunit --testdox",
         "check:structure" : "pds-skeleton validate .",
         "check" : "phpcs --standard=PSR2 --extensions=php src tests",
         "s:1": "phpstan analyse src --level=1 --ansi -c phpstan.neon",
@@ -38,6 +43,6 @@
         "s:5": "phpstan analyse src --level=5 --ansi -c phpstan.neon",
         "s:6": "phpstan analyse src --level=6 --ansi -c phpstan.neon",
         "s:7": "phpstan analyse src --level=7 --ansi -c phpstan.neon",
-        "all": "clear && composer s:7 && composer check"
+        "all": "clear && composer s:7 && composer check && composer test"
     }
 }
