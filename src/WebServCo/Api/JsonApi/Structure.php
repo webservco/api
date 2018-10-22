@@ -8,6 +8,8 @@ class Structure
     protected $data;
     protected $errors;
 
+    const CONTENT_TYPE = 'application/vnd.api+json';
+
     public function __construct()
     {
         $this->meta = [];
