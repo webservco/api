@@ -1,14 +1,12 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
-final class ResourceObject
+abstract class AbstractResourceObject
 {
     protected $type;
     protected $id;
     protected $attributes;
     protected $meta;
-
-    const TYPE_TEST = 'test';
 
     public function __construct()
     {

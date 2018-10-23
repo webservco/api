@@ -18,7 +18,7 @@ class Structure
         $this->errors = [];
     }
 
-    public function setData(\WebServCo\Api\JsonApi\ResourceObject $resourceObject)
+    public function setData(\WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface $resourceObject)
     {
         $this->data = $resourceObject->toArray();
     }
