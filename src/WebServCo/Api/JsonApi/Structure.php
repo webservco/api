@@ -37,7 +37,9 @@ class Structure
             $array['meta'] = $this->meta;
         }
         if ($this->errors) {
-            $array['errors'] = $this->errors;
+            foreach ($this->errors as $error) {
+                $array['errors'][] = $error->toArray();
+            }
         } else {
             $array['data'] = $this->data;
         }
