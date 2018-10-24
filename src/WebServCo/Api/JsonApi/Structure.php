@@ -36,7 +36,7 @@ class Structure
         if ($this->meta) {
             $array['meta'] = $this->meta;
         }
-        if ($this->errors) {
+        if (!empty($this->errors)) {
             foreach ($this->errors as $error) {
                 $array['errors'][] = $error->toArray();
             }
