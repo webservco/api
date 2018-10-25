@@ -6,6 +6,7 @@ use \WebServCo\Framework\Exceptions\NotImplementedException;
 abstract class AbstractSecurity
 {
     protected $allowedMethods;
+    protected $clientContentTypes;
     protected $supportedContentTypes;
     protected $request;
 
@@ -14,6 +15,11 @@ abstract class AbstractSecurity
         $this->allowedMethods = [];
         $this->supportedContentTypes = [];
         $this->request = $request;
+
+        $this->clientContentTypes = $this->request->getAcceptContentTypes();
+        if (array_key_exists(0, $this->clientContentTypes)) {
+            unset($this->clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
+        }
     }
 
     public function verify()
@@ -21,6 +27,11 @@ abstract class AbstractSecurity
         $this->verifySsl();
         $this->verifyMethod();
         $this->verifyContentType();
+    }
+
+    public function getClientContentTypes()
+    {
+        return $this->clientContentTypes;
     }
 
     public function setAllowedMethods(array $allowedMethods)
@@ -37,14 +48,10 @@ abstract class AbstractSecurity
 
     protected function verifyContentType()
     {
-        $clientContentTypes = $this->request->getAcceptContentTypes();
-        if (array_key_exists(0, $clientContentTypes)) {
-            unset($clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
-        }
         if (empty($this->supportedContentTypes)) {
             throw new NotImplementedException('Content type support not implemented');
         }
-        $intersection = array_intersect($clientContentTypes, $this->supportedContentTypes);
+        $intersection = array_intersect($this->clientContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
         }
