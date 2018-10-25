@@ -1,14 +1,18 @@
 <?php
 namespace WebServCo\Api;
 
+use \WebServCo\Framework\Exceptions\NotImplementedException;
+
 abstract class AbstractSecurity
 {
     protected $allowedMethods;
+    protected $supportedContentTypes;
     protected $request;
 
     public function __construct(\WebServCo\Framework\Interfaces\RequestInterface $request)
     {
         $this->allowedMethods = [];
+        $this->supportedContentTypes = [];
         $this->request = $request;
     }
 
@@ -24,7 +28,10 @@ abstract class AbstractSecurity
         $this->allowedMethods = $allowedMethods;
     }
 
-    abstract protected function getSupportedContentTypes();
+    public function setSupportedContentTypes(array $supportedContentTypes)
+    {
+        $this->supportedContentTypes = $supportedContentTypes;
+    }
 
     abstract public function verifyAuthorization();
 
@@ -34,8 +41,10 @@ abstract class AbstractSecurity
         if (array_key_exists(0, $clientContentTypes)) {
             unset($clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
         }
-        $supportedContentTypes = $this->getSupportedContentTypes();
-        $intersection = array_intersect($clientContentTypes, $supportedContentTypes);
+        if (empty($this->supportedContentTypes)) {
+            throw new NotImplementedException('Content type support not implemented');
+        }
+        $intersection = array_intersect($clientContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
         }
@@ -45,7 +54,7 @@ abstract class AbstractSecurity
     protected function verifyMethod()
     {
         if (empty($this->allowedMethods)) {
-            throw new \WebServCo\Api\Exceptions\ApiException('Method not implemented', 501); //501 Not Implemented
+            throw new NotImplementedException('Method not implemented');
         }
         if (!in_array($this->request->getMethod(), $this->allowedMethods)) {
             throw new \WebServCo\Framework\Exceptions\MethodNotAllowedException('Unsupported method');
