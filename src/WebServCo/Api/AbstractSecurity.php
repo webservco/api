@@ -3,10 +3,12 @@ namespace WebServCo\Api;
 
 abstract class AbstractSecurity
 {
+    protected $allowedMethods;
     protected $request;
 
     public function __construct(\WebServCo\Framework\Interfaces\RequestInterface $request)
     {
+        $this->allowedMethods = [];
         $this->request = $request;
     }
 
@@ -17,9 +19,12 @@ abstract class AbstractSecurity
         $this->verifyContentType();
     }
 
-    abstract protected function getSupportedContentTypes();
+    public function setAllowedMethods(array $allowedMethods)
+    {
+        $this->allowedMethods = $allowedMethods;
+    }
 
-    abstract protected function getAllowedMethods();
+    abstract protected function getSupportedContentTypes();
 
     abstract public function verifyAuthorization();
 
@@ -39,7 +44,10 @@ abstract class AbstractSecurity
 
     protected function verifyMethod()
     {
-        if (!in_array($this->request->getMethod(), $this->getAllowedMethods())) {
+        if (empty($this->allowedMethods)) {
+            throw new \WebServCo\Api\Exceptions\ApiException('Method not implemented', 501); //501 Not Implemented
+        }
+        if (!in_array($this->request->getMethod(), $this->allowedMethods)) {
             throw new \WebServCo\Framework\Exceptions\MethodNotAllowedException('Unsupported method');
         }
         return true;
