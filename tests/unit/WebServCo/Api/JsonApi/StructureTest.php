@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Framework;
+namespace Tests\Api\JsonApi;
 
 use PHPUnit\Framework\TestCase;
 
