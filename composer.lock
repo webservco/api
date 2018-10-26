@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "/home/radu/projects/local/webservco/framework",
-                "reference": "fea9ba538e80e3ca1462eccea836992a788212cc",
+                "reference": "9611eb9e3359fb2cd35abe467a7cacb7a57693cf",
                 "shasum": null
             },
             "require": {
@@ -29,7 +29,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "WebServCo\\": "src/WebServCo/"
+                    "WebServCo\\": "src/WebServCo/",
+                    "Tests\\": "tests/unit/WebServCo/"
                 }
             },
             "scripts": {
@@ -46,25 +47,25 @@
                     "phpcs --standard=PSR2 --extensions=php src tests"
                 ],
                 "s:1": [
-                    "phpstan analyse src --level=1 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=1 --ansi -c phpstan.neon"
                 ],
                 "s:2": [
-                    "phpstan analyse src --level=2 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=2 --ansi -c phpstan.neon"
                 ],
                 "s:3": [
-                    "phpstan analyse src --level=3 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=3 --ansi -c phpstan.neon"
                 ],
                 "s:4": [
-                    "phpstan analyse src --level=4 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=4 --ansi -c phpstan.neon"
                 ],
                 "s:5": [
-                    "phpstan analyse src --level=5 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=5 --ansi -c phpstan.neon"
                 ],
                 "s:6": [
-                    "phpstan analyse src --level=6 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=6 --ansi -c phpstan.neon"
                 ],
                 "s:7": [
-                    "phpstan analyse src --level=7 --ansi -c phpstan.neon"
+                    "phpstan analyse src tests --level=7 --ansi -c phpstan.neon"
                 ],
                 "all": [
                     "clear && composer s:7 && composer check && composer test"

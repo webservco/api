@@ -1,5 +1,5 @@
 <?php
-namespace Tests;
+namespace Tests\Test;
 
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,7 @@ final class Test extends TestCase
     {
         $this->assertTrue(true);
     }
-    
+
     public function blank()
     {
         $this->markTestIncomplete('TODO');
