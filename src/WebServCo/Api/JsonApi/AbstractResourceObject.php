@@ -48,4 +48,10 @@ abstract class AbstractResourceObject
         }
         return $array;
     }
+
+    public function toJson()
+    {
+        $array = $this->toArray();
+        return json_encode($array);
+    }
 }
