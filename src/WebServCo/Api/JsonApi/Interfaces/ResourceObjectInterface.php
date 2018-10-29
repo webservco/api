@@ -8,4 +8,5 @@ interface ResourceObjectInterface
     public function setAttribute($key, $value);
     public function setMeta($key, $value);
     public function toArray();
+    public function toJson();
 }
