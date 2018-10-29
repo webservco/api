@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\Api;
 
-use \WebServCo\Framework\Exceptions\NotImplementedException;
+use WebServCo\Framework\Exceptions\NotImplementedException;
 
 abstract class AbstractSecurity
 {
