@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\Api;
 
-use WebServCo\Api\JsonApi\Structure;
+use WebServCo\Api\JsonApi\Document;
 use WebServCo\Framework\Exceptions\HttpException;
 
 abstract class AbstractClientRequest
@@ -39,7 +39,7 @@ abstract class AbstractClientRequest
     {
         $contentType = $this->request->getContentType();
         $parts = explode(';', $contentType);
-        if ($parts[0] != Structure::CONTENT_TYPE) {
+        if ($parts[0] != Document::CONTENT_TYPE) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
         }
         return true;
@@ -58,7 +58,7 @@ abstract class AbstractClientRequest
         if (!isset($this->requestData['jsonapi']['version'])) {
             throw new HttpException(sprintf(self::MSG_TPL_REQUIRED, 'jsonapi.version'));
         }
-        if ($this->requestData['jsonapi']['version'] != Structure::VERSION) {
+        if ($this->requestData['jsonapi']['version'] != Document::VERSION) {
             throw new HttpException(
                 sprintf('Unsupported JSON API version: %s', $this->requestData['jsonapi']['version'])
             );

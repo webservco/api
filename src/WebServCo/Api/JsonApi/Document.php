@@ -1,12 +1,13 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
-class Structure
+class Document
 {
     protected $meta;
     protected $jsonapi;
     protected $data;
     protected $errors;
+    protected $statusCode;
 
     const CONTENT_TYPE = 'application/vnd.api+json';
     const VERSION = '1.0';
@@ -17,6 +18,12 @@ class Structure
         $this->jsonapi = ['version' => self::VERSION];
         $this->data = [];
         $this->errors = [];
+        $this->statusCode = 200;
+    }
+
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 
     public function setData(\WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface $resourceObject)
@@ -27,6 +34,13 @@ class Structure
     public function setError(\WebServCo\Api\JsonApi\Error $error)
     {
         $this->errors[] = $error;
+        // set status code of last error.
+        $this->statusCode = $error->getStatus();
+    }
+
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
     }
 
     public function toArray()
