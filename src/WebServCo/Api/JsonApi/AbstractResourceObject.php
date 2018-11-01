@@ -16,6 +16,11 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
         $this->meta = [];
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function setType($type)
     {
         $this->type = $type;
