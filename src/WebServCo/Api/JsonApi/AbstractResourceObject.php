@@ -6,11 +6,13 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
     protected $type;
     protected $id;
     protected $attributes;
+    protected $links;
     protected $meta;
 
     public function __construct()
     {
         $this->attributes = [];
+        $this->links = [];
         $this->meta = [];
     }
 
@@ -29,6 +31,11 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
         $this->attributes[$key] = $value;
     }
 
+    public function setLink($key, $value)
+    {
+        $this->links[$key] = $value;
+    }
+
     public function setMeta($key, $value)
     {
         $this->meta[$key] = $value;
@@ -43,7 +50,10 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
         if ($this->attributes) {
             $array['attributes'] = $this->attributes;
         }
-        if ($this->meta) {
+        if (!empty($this->links)) {
+            $array['links'] = $this->links;
+        }
+        if (!empty($this->meta)) {
             $array['meta'] = $this->meta;
         }
         return $array;
