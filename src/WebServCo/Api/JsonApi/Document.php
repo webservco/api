@@ -34,8 +34,7 @@ class Document
     public function setError(\WebServCo\Api\JsonApi\Error $error)
     {
         $this->errors[] = $error;
-        // set status code of last error.
-        $this->statusCode = $error->getStatus();
+        $this->statusCode = $error->getStatus(); // set status code of last error.
     }
 
     public function setStatusCode($statusCode)
