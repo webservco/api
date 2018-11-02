@@ -17,7 +17,7 @@ abstract class AbstractSecurity
         $this->request = $request;
 
         $this->clientContentTypes = $this->request->getAcceptContentTypes();
-        if (array_key_exists(0, $this->clientContentTypes)) {
+        if (is_array($this->clientContentTypes) && array_key_exists(0, $this->clientContentTypes)) {
             unset($this->clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
         }
     }
