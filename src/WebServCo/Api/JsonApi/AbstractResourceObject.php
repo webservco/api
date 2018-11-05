@@ -19,7 +19,7 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
     public function getAttribute($key)
     {
         if (!array_key_exists($key, $this->attributes)) {
-            throw new \InvalidArgumentException('Attribute not found');
+            throw new \InvalidArgumentException(sprintf('Attribute not found: %s', $key));
         }
         return $this->attributes[$key];
     }
