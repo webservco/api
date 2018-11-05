@@ -3,6 +3,7 @@ namespace WebServCo\Api\JsonApi\Interfaces;
 
 interface ResourceObjectInterface
 {
+    public function getAttribute($key);
     public function getId();
     public function setType($type);
     public function setId($id);
