@@ -29,6 +29,14 @@ abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfac
         return $this->id;
     }
 
+    public function getMeta($key)
+    {
+        if (!array_key_exists($key, $this->meta)) {
+            throw new \InvalidArgumentException(sprintf('Meta not found: %s', $key));
+        }
+        return $this->meta[$key];
+    }
+
     public function setType($type)
     {
         $this->type = $type;

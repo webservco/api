@@ -5,6 +5,7 @@ interface ResourceObjectInterface
 {
     public function getAttribute($key);
     public function getId();
+    public function getMeta($key);
     public function setType($type);
     public function setId($id);
     public function setAttribute($key, $value);
