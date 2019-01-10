@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
-class Response extends \WebServCo\Framework\HttpResponse
+class Response extends \WebServCo\Framework\Http\Response
 {
     public function __construct(
         Document $document

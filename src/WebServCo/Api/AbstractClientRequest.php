@@ -20,7 +20,7 @@ abstract class AbstractClientRequest
         $this->allowMultipleDataObjects = false;
         $this->request = $request;
         $requestMethod = $this->request->getMethod();
-        if (in_array($requestMethod, [\WebServCo\Framework\Http::METHOD_POST])) {
+        if (in_array($requestMethod, [\WebServCo\Framework\Http\Method::POST])) {
             $this->processRequestData = true;
             $this->requestData = json_decode($this->request->getBody(), true);
         }
