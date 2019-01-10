@@ -1,7 +1,9 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
-abstract class AbstractResourceObject implements \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface
+abstract class AbstractResourceObject implements
+    \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface,
+    \WebServCo\Framework\Interfaces\JsonInterface
 {
     protected $type;
     protected $id;

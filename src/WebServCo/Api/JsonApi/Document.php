@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
-class Document
+class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 {
     protected $meta;
     protected $jsonapi;
