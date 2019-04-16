@@ -42,7 +42,7 @@ abstract class AbstractResponse
     {
         $responseContent = $this->response->getContent();
         $contentType = $this->response->getHeader('Content-Type');
-        $parts = explode(';', $contentType);
+        $parts = explode(';', (string) $contentType);
 
         switch ($parts[0]) {
             case 'application/json':
@@ -63,8 +63,8 @@ abstract class AbstractResponse
                 return $responseContent;
                 break;
             default:
-                throw new \WebServCo\Api\Exceptions\ApiException(
-                    sprintf('Api returned unsupported content type: %s.', $contentType)
+                throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
+                    sprintf('Api returned unsupported content type: %s.', (string) $contentType)
                 );
                 break;
         }

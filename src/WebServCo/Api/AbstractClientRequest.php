@@ -38,9 +38,11 @@ abstract class AbstractClientRequest
     protected function verifyContentType()
     {
         $contentType = $this->request->getContentType();
-        $parts = explode(';', $contentType);
+        $parts = explode(';', (string) $contentType);
         if ($parts[0] != Document::CONTENT_TYPE) {
-            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
+            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
+                sprintf('Unsupported content type: %s.', (string) $contentType)
+            );
         }
         return true;
     }
