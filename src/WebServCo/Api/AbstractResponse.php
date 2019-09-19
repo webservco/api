@@ -41,7 +41,7 @@ abstract class AbstractResponse
     protected function processResponseData()
     {
         $responseContent = $this->response->getContent();
-        $contentType = $this->response->getHeader('Content-Type');
+        $contentType = $this->response->getHeader('content-type');
         $parts = explode(';', (string) $contentType);
 
         switch ($parts[0]) {
