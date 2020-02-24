@@ -2,7 +2,7 @@
 namespace WebServCo\Api;
 
 use WebServCo\Api\JsonApi\Document;
-use WebServCo\Framework\Exceptions\HttpException;
+use WebServCo\Api\Exceptions\ApiException;
 
 abstract class AbstractClientRequest
 {
@@ -12,6 +12,7 @@ abstract class AbstractClientRequest
     protected $requestData;
 
     const MSG_TPL_INVALID = 'Invalid data: %s';
+    const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s (%s)';
     const MSG_TPL_REQUIRED = 'Missing required data: %s';
 
     public function __construct(
@@ -24,6 +25,21 @@ abstract class AbstractClientRequest
             $this->processRequestData = true;
             $this->requestData = json_decode($this->request->getBody(), true);
         }
+    }
+
+    protected function throwInvalidException($item)
+    {
+        throw new ApiException(sprintf(self::MSG_TPL_INVALID, $item));
+    }
+
+    protected function throwMaximumLengthException($item, $maximumLength)
+    {
+        throw new ApiException(sprintf(self::MSG_TPL_MAXIMUM_LENGTH, $item, $maximumLength));
+    }
+
+    protected function throwRequiredException($item)
+    {
+        throw new ApiException(sprintf(self::MSG_TPL_REQUIRED, $item));
     }
 
     protected function verify()
@@ -50,28 +66,28 @@ abstract class AbstractClientRequest
     protected function verifyRequestData()
     {
         if (!is_array($this->requestData)) {
-            throw new HttpException(sprintf(self::MSG_TPL_INVALID, 'root object'));
+            $this->throwInvalidException('root object');
         }
         foreach (['jsonapi', 'data'] as $item) {
             if (!isset($this->requestData[$item])) {
-                throw new HttpException(sprintf(self::MSG_TPL_REQUIRED, $item));
+                $this->throwRequiredException($item);
             }
         }
         if (!isset($this->requestData['jsonapi']['version'])) {
-            throw new HttpException(sprintf(self::MSG_TPL_REQUIRED, 'jsonapi.version'));
+            $this->throwRequiredException('jsonapi.version');
         }
         if ($this->requestData['jsonapi']['version'] != Document::VERSION) {
-            throw new HttpException(
+            throw new ApiException(
                 sprintf('Unsupported JSON API version: %s', $this->requestData['jsonapi']['version'])
             );
         }
         if (!is_array($this->requestData['data'])) {
-            throw new HttpException(sprintf(self::MSG_TPL_INVALID, 'data'));
+            $this->throwInvalidException('data');
         }
         $key = key($this->requestData['data']);
         if (0 === $key) { //multiple data objects
             if (!$this->allowMultipleDataObjects) {
-                throw new HttpException('Multiple data objects not allowed for this endpoint');
+                throw new ApiException('Multiple data objects not allowed for this endpoint');
             }
             foreach ($this->requestData['data'] as $item) {
                 $this->verifyData($item);
@@ -88,14 +104,14 @@ abstract class AbstractClientRequest
     {
         foreach (['type', 'attributes'] as $item) {
             if (!isset($data[$item])) {
-                throw new HttpException(sprintf(self::MSG_TPL_REQUIRED, sprintf('data.%s', $item)));
+                $this->throwRequiredException(sprintf('data.%s', $item));
             }
         }
         if (empty($data['type'])) {
-            throw new HttpException(sprintf(self::MSG_TPL_REQUIRED, 'data.type'));
+            $this->throwRequiredException('data.type');
         }
         if (!is_array($data['attributes'])) {
-            throw new HttpException(sprintf(self::MSG_TPL_INVALID, 'data.attributes'));
+            $this->throwInvalidException('data.attributes');
         }
 
         return true;
@@ -105,7 +121,7 @@ abstract class AbstractClientRequest
     {
         if (isset($this->requestData['meta'])) { // meta is optional
             if (!is_array($this->requestData['meta'])) {
-                throw new HttpException(sprintf(self::MSG_TPL_INVALID, 'meta'));
+                $this->throwInvalidException('meta');
             }
         }
     }
