@@ -12,7 +12,7 @@ abstract class AbstractClientRequest
     protected $requestData;
 
     const MSG_TPL_INVALID = 'Invalid data: %s';
-    const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s - %s';
+    const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s: %s';
     const MSG_TPL_REQUIRED = 'Missing required data: %s';
 
     public function __construct(
