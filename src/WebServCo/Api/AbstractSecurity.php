@@ -2,6 +2,7 @@
 namespace WebServCo\Api;
 
 use WebServCo\Framework\Exceptions\NotImplementedException;
+use WebServCo\Framework\Exceptions\Validation\RequiredArgumentException;
 
 abstract class AbstractSecurity
 {
@@ -49,7 +50,10 @@ abstract class AbstractSecurity
     protected function verifyContentType()
     {
         if (empty($this->supportedContentTypes)) {
-            throw new NotImplementedException('Content type support not implemented');
+            throw new RequiredArgumentException('Missing supported content types');
+        }
+        if (empty($this->clientContentTypes)) {
+            throw new RequiredArgumentException('Missing client content type');
         }
         $intersection = array_intersect($this->clientContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
