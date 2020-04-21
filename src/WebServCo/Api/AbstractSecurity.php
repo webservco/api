@@ -52,6 +52,7 @@ abstract class AbstractSecurity
         if (empty($this->supportedContentTypes)) {
             throw new RequiredArgumentException('Missing supported content types');
         }
+        // 21.04.2020 seems this is never reached, if client sends empty accept header, it is set to "*/*"
         if (empty($this->clientContentTypes)) {
             throw new RequiredArgumentException('Missing client content type');
         }
