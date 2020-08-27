@@ -18,7 +18,6 @@ abstract class AbstractResponse
         if (!in_array($this->status, [204, 205])) { // In some situations there is no content to process
             $this->data = $this->processResponseData();
         }
-
     }
 
     public function getData()
@@ -51,7 +50,6 @@ abstract class AbstractResponse
             case 'application/json':
             case 'text/json':
                 return json_decode($responseContent, true);
-                break;
             case 'application/x-www-form-urlencoded':
                 if (false === strpos($responseContent, '=')) {
                     /* Sometimes Discogs returns text/plain with this content type ... */
@@ -60,16 +58,13 @@ abstract class AbstractResponse
                 $data = [];
                 parse_str($responseContent, $data);
                 return $data;
-                break;
             case 'text/plain':
             case 'text/html':
                 return $responseContent;
-                break;
             default:
                 throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
                     sprintf('Api returned unsupported content type: %s.', (string) $contentType)
                 );
-                break;
         }
     }
 }
