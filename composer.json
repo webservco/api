@@ -16,7 +16,7 @@
     ],
     "require" : {
         "php" : "^7.4",
-        "webservco/framework" : "dev-v10"
+        "webservco/framework" : "v10.x-dev"
     },
     "require-dev" : {
         "phpunit/phpunit" : "~9"
