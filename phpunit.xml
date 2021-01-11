@@ -8,8 +8,7 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false"
-        verbose="true"
-        debug="true">
+        verbose="true">
     <testsuites>
         <testsuite name="Test">
             <directory suffix="Test.php">./tests/unit/WebServCo/Test</directory>

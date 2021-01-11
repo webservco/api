@@ -9,7 +9,7 @@ final class DocumentTest extends TestCase
     /**
      * @test
      */
-    public function constantContentTypeHasExpectedValue()
+    public function constantContentTypeHasExpectedValue() : void
     {
         $this->assertEquals('application/vnd.api+json', Document::CONTENT_TYPE);
     }
@@ -17,7 +17,7 @@ final class DocumentTest extends TestCase
     /**
      * @test
      */
-    public function constantVersionHasExpectedValue()
+    public function constantVersionHasExpectedValue() : void
     {
         $this->assertEquals('1.0', Document::VERSION);
     }

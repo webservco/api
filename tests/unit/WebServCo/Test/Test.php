@@ -8,12 +8,12 @@ final class Test extends TestCase
     /**
      * @test
      */
-    public function dummyPassingTest()
+    public function dummyPassingTest() : void
     {
         $this->assertTrue(true);
     }
 
-    public function blank()
+    public function blank() : void
     {
         $this->markTestIncomplete('TODO');
     }
