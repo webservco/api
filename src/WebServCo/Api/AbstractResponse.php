@@ -1,15 +1,23 @@
 <?php
 namespace WebServCo\Api;
 
+use WebServCo\Framework\Http\Response;
+
 abstract class AbstractResponse
 {
-    protected $endpoint;
+    protected string $endpoint;
+    /**
+    * @var mixed
+    */
     protected $data;
-    protected $method;
-    protected $response; // \WebServCo\Framework\Http\Response
-    protected $status;
 
-    public function __construct($endpoint, $method, \WebServCo\Framework\Http\Response $response)
+    protected string $method;
+
+    protected Response $response;
+
+    protected int $status;
+
+    public function __construct(string $endpoint, string $method, Response $response)
     {
         $this->endpoint = $endpoint;
         $this->method = $method;
@@ -20,31 +28,34 @@ abstract class AbstractResponse
         }
     }
 
+    /**
+    * @return mixed
+    */
     public function getData()
     {
         return $this->data;
     }
 
-    public function getEndpoint()
+    public function getEndpoint() : string
     {
         return $this->endpoint;
     }
 
-    public function getMethod()
+    public function getMethod() : string
     {
         return $this->method;
     }
 
-    public function getStatus()
+    public function getStatus() : int
     {
         return $this->status;
     }
 
-    protected function processResponseData()
+    protected function processResponseData() : mixed
     {
         $responseContent = $this->response->getContent();
-        $contentType = $this->response->getHeader('content-type');
-        $parts = explode(';', (string) $contentType);
+        $contentType = $this->response->getHeaderLine('content-type');
+        $parts = explode(';', $contentType);
 
         switch ($parts[0]) {
             case 'application/json':

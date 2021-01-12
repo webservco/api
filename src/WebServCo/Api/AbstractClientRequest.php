@@ -3,21 +3,24 @@ namespace WebServCo\Api;
 
 use WebServCo\Api\JsonApi\Document;
 use WebServCo\Api\Exceptions\ApiException;
+use WebServCo\Framework\Interfaces\RequestInterface;
 
 abstract class AbstractClientRequest
 {
-    protected $allowMultipleDataObjects;
-    protected $request;
-    protected $processRequestData;
-    protected $requestData;
+    protected bool $allowMultipleDataObjects;
+    protected RequestInterface $request;
+    protected bool $processRequestData;
+    /**
+    * @var array<mixed>
+    */
+    protected array $requestData;
 
     const MSG_TPL_INVALID = 'Invalid data: %s';
     const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s: %s';
     const MSG_TPL_REQUIRED = 'Missing required data: %s';
 
-    public function __construct(
-        \WebServCo\Framework\Interfaces\RequestInterface $request
-    ) {
+    public function __construct(RequestInterface $request)
+    {
         $this->allowMultipleDataObjects = false;
         $this->request = $request;
         $requestMethod = $this->request->getMethod();
@@ -27,22 +30,22 @@ abstract class AbstractClientRequest
         }
     }
 
-    protected function throwInvalidException($item)
+    protected function throwInvalidException(string $item) : void
     {
         throw new ApiException(sprintf(self::MSG_TPL_INVALID, $item));
     }
 
-    protected function throwMaximumLengthException($item, $maximumLength)
+    protected function throwMaximumLengthException(string $item, int $maximumLength) : void
     {
         throw new ApiException(sprintf(self::MSG_TPL_MAXIMUM_LENGTH, $item, $maximumLength));
     }
 
-    protected function throwRequiredException($item)
+    protected function throwRequiredException(string $item) : void
     {
         throw new ApiException(sprintf(self::MSG_TPL_REQUIRED, $item));
     }
 
-    protected function verify()
+    protected function verify() : bool
     {
         $this->verifyContentType();
         if ($this->processRequestData) {
@@ -51,7 +54,7 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyContentType()
+    protected function verifyContentType() : bool
     {
         $contentType = $this->request->getContentType();
         $parts = explode(';', (string) $contentType);
@@ -63,7 +66,7 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyRequestData()
+    protected function verifyRequestData() : bool
     {
         if (!is_array($this->requestData)) {
             $this->throwInvalidException('root object');
@@ -100,7 +103,10 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyData($data)
+    /**
+    * @param array<string,mixed> $data
+    */
+    protected function verifyData(array $data) : bool
     {
         foreach (['type', 'attributes'] as $item) {
             if (!isset($data[$item])) {
@@ -117,12 +123,13 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyMeta()
+    protected function verifyMeta() : bool
     {
         if (isset($this->requestData['meta'])) { // meta is optional
             if (!is_array($this->requestData['meta'])) {
                 $this->throwInvalidException('meta');
             }
         }
+        return true;
     }
 }

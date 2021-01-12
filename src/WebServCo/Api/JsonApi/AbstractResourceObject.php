@@ -5,11 +5,24 @@ abstract class AbstractResourceObject implements
     \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface,
     \WebServCo\Framework\Interfaces\JsonInterface
 {
-    protected $type;
-    protected $id;
-    protected $attributes;
-    protected $links;
-    protected $meta;
+    protected string $type;
+
+    protected string $id;
+
+    /**
+    * @var array<string,array<string,int|string>|string>
+    */
+    protected array $attributes;
+
+    /**
+    * @var array<string,string>
+    */
+    protected array $links;
+
+    /**
+    * @var array<string,int|string>
+    */
+    protected array $meta;
 
     public function __construct()
     {
@@ -18,7 +31,11 @@ abstract class AbstractResourceObject implements
         $this->meta = [];
     }
 
-    public function getAttribute($key)
+    /**
+    * @param string $key
+    * @return array<string,int|string>|string
+    */
+    public function getAttribute(string $key)
     {
         if (!array_key_exists($key, $this->attributes)) {
             throw new \InvalidArgumentException(sprintf('Attribute not found: %s', $key));
@@ -26,12 +43,16 @@ abstract class AbstractResourceObject implements
         return $this->attributes[$key];
     }
 
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
 
-    public function getMeta($key)
+    /**
+    * @param string $key
+    * @return int|string
+    */
+    public function getMeta(string $key)
     {
         if (!array_key_exists($key, $this->meta)) {
             throw new \InvalidArgumentException(sprintf('Meta not found: %s', $key));
@@ -39,32 +60,49 @@ abstract class AbstractResourceObject implements
         return $this->meta[$key];
     }
 
-    public function setType($type)
+    public function setType(string $type) : bool
     {
         $this->type = $type;
+        return true;
     }
 
-    public function setId($id)
+    public function setId(string $id) : bool
     {
         $this->id = $id;
+        return true;
     }
 
-    public function setAttribute($key, $value)
+    /**
+    * @param string $key
+    * @param array<string,int|string>|string $value
+    * @return bool
+    */
+    public function setAttribute(string $key, $value) : bool
     {
         $this->attributes[$key] = $value;
+        return true;
     }
 
-    public function setLink($key, $value)
+    public function setLink(string $key, string $value) : bool
     {
         $this->links[$key] = $value;
+        return true;
     }
 
-    public function setMeta($key, $value)
+    /**
+    * @param string $key
+    * @param int|string $value
+    */
+    public function setMeta(string $key, $value) : bool
     {
         $this->meta[$key] = $value;
+        return true;
     }
 
-    public function toArray()
+    /**
+    * @return array<string,mixed>
+    */
+    public function toArray() : array
     {
         $array = [
             'type' => $this->type,
@@ -82,9 +120,9 @@ abstract class AbstractResourceObject implements
         return $array;
     }
 
-    public function toJson()
+    public function toJson() : string
     {
         $array = $this->toArray();
-        return json_encode($array);
+        return (string) json_encode($array);
     }
 }

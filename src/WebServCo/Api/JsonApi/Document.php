@@ -1,13 +1,32 @@
 <?php
 namespace WebServCo\Api\JsonApi;
 
+use WebServCo\Api\JsonApi\Error;
+use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
+
 class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 {
-    protected $meta;
-    protected $jsonapi;
-    protected $data;
-    protected $errors;
-    protected $statusCode;
+    /**
+    * @var array<string,int|string>
+    */
+    protected array $meta;
+
+    /**
+    * @var array<string,string>
+    */
+    protected array $jsonapi;
+
+    /**
+    * @var array<int,ResourceObjectInterface>
+    */
+    protected array $data;
+
+    /**
+    * @var array<int,Error>
+    */
+    protected array $errors;
+
+    protected int $statusCode;
 
     const CONTENT_TYPE = 'application/vnd.api+json';
     const VERSION = '1.0';
@@ -21,28 +40,34 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         $this->statusCode = 200;
     }
 
-    public function getStatusCode()
+    public function getStatusCode() : int
     {
         return $this->statusCode;
     }
 
-    public function setData(\WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface $resourceObject)
+    public function setData(ResourceObjectInterface $resourceObject) : bool
     {
         $this->data[] = $resourceObject;
+        return true;
     }
 
-    public function setError(\WebServCo\Api\JsonApi\Error $error)
+    public function setError(Error $error) : bool
     {
         $this->errors[] = $error;
         $this->statusCode = $error->getStatus(); // set status code of last error.
+        return true;
     }
 
-    public function setStatusCode($statusCode)
+    public function setStatusCode(int $statusCode) : bool
     {
         $this->statusCode = $statusCode;
+        return true;
     }
 
-    public function toArray()
+    /**
+    * @return array<string,mixed>
+    */
+    public function toArray() : array
     {
         $array = [
             'jsonapi' => $this->jsonapi,
@@ -67,9 +92,9 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         return $array;
     }
 
-    public function toJson()
+    public function toJson() : string
     {
         $array = $this->toArray();
-        return json_encode($array);
+        return (string) json_encode($array);
     }
 }
