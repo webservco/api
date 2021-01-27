@@ -51,7 +51,10 @@ abstract class AbstractResponse
         return $this->status;
     }
 
-    protected function processResponseData() : mixed
+    /**
+    * @return mixed
+    */
+    protected function processResponseData()
     {
         $responseContent = $this->response->getContent();
         $contentType = $this->response->getHeaderLine('content-type');
