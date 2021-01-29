@@ -24,7 +24,7 @@ abstract class AbstractSecurity
 
     protected RequestInterface $request;
 
-    abstract public function verifyAuthorization() : bool;
+    abstract public function verifyAuthorization(): bool;
 
     public function __construct(RequestInterface $request)
     {
@@ -38,7 +38,7 @@ abstract class AbstractSecurity
         }
     }
 
-    public function verify() : bool
+    public function verify(): bool
     {
         $this->verifySsl();
         $this->verifyMethod();
@@ -49,7 +49,7 @@ abstract class AbstractSecurity
     /**
     * @return array<int|string,string>
     */
-    public function getClientContentTypes() : array
+    public function getClientContentTypes(): array
     {
         return $this->clientContentTypes;
     }
@@ -58,7 +58,7 @@ abstract class AbstractSecurity
     * @param array<int,string> $allowedMethods
     * @return bool
     */
-    public function setAllowedMethods(array $allowedMethods) : bool
+    public function setAllowedMethods(array $allowedMethods): bool
     {
         $this->allowedMethods = $allowedMethods;
         return true;
@@ -68,13 +68,13 @@ abstract class AbstractSecurity
     * @param array<int|string,string> $supportedContentTypes
     * @return bool
     */
-    public function setSupportedContentTypes(array $supportedContentTypes) : bool
+    public function setSupportedContentTypes(array $supportedContentTypes): bool
     {
         $this->supportedContentTypes = $supportedContentTypes;
         return true;
     }
 
-    protected function verifyContentType() : bool
+    protected function verifyContentType(): bool
     {
         if (empty($this->supportedContentTypes)) {
             throw new RequiredArgumentException('Missing supported content types');
@@ -90,7 +90,7 @@ abstract class AbstractSecurity
         return true;
     }
 
-    protected function verifyMethod() : bool
+    protected function verifyMethod(): bool
     {
         if (empty($this->allowedMethods)) {
             throw new NotImplementedException('Method not implemented');
@@ -101,7 +101,7 @@ abstract class AbstractSecurity
         return true;
     }
 
-    protected function verifySsl() : bool
+    protected function verifySsl(): bool
     {
         $schema = $this->request->getSchema();
         if ('https' != $schema) {

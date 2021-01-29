@@ -30,30 +30,30 @@ final class Error
         $this->meta = [];
     }
 
-    public function getStatus() : int
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    public function setStatus(int $status) : bool
+    public function setStatus(int $status): bool
     {
         $this->status = $status;
         return true;
     }
 
-    public function setTitle(string $title) : bool
+    public function setTitle(string $title): bool
     {
         $this->title = $title;
         return true;
     }
 
-    public function setDetail(string $detail) : bool
+    public function setDetail(string $detail): bool
     {
         $this->detail = $detail;
         return true;
     }
 
-    public function setMeta(string $key, string $value) : bool
+    public function setMeta(string $key, string $value): bool
     {
         $this->meta[$key] = $value;
         return true;
@@ -62,7 +62,7 @@ final class Error
     /**
     * @return array<string,mixed>
     */
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = [];
         foreach (get_object_vars($this) as $key => $value) {

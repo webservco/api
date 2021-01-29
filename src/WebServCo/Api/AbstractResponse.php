@@ -36,17 +36,17 @@ abstract class AbstractResponse
         return $this->data;
     }
 
-    public function getEndpoint() : string
+    public function getEndpoint(): string
     {
         return $this->endpoint;
     }
 
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return $this->method;
     }
 
-    public function getStatus() : int
+    public function getStatus(): int
     {
         return $this->status;
     }

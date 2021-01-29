@@ -43,7 +43,7 @@ abstract class AbstractResourceObject implements
         return $this->attributes[$key];
     }
 
-    public function getId() : string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -60,13 +60,13 @@ abstract class AbstractResourceObject implements
         return $this->meta[$key];
     }
 
-    public function setType(string $type) : bool
+    public function setType(string $type): bool
     {
         $this->type = $type;
         return true;
     }
 
-    public function setId(string $id) : bool
+    public function setId(string $id): bool
     {
         $this->id = $id;
         return true;
@@ -77,13 +77,13 @@ abstract class AbstractResourceObject implements
     * @param array<string,int|string>|string $value
     * @return bool
     */
-    public function setAttribute(string $key, $value) : bool
+    public function setAttribute(string $key, $value): bool
     {
         $this->attributes[$key] = $value;
         return true;
     }
 
-    public function setLink(string $key, string $value) : bool
+    public function setLink(string $key, string $value): bool
     {
         $this->links[$key] = $value;
         return true;
@@ -93,7 +93,7 @@ abstract class AbstractResourceObject implements
     * @param string $key
     * @param int|string $value
     */
-    public function setMeta(string $key, $value) : bool
+    public function setMeta(string $key, $value): bool
     {
         $this->meta[$key] = $value;
         return true;
@@ -102,7 +102,7 @@ abstract class AbstractResourceObject implements
     /**
     * @return array<string,mixed>
     */
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = [
             'type' => $this->type,
@@ -120,7 +120,7 @@ abstract class AbstractResourceObject implements
         return $array;
     }
 
-    public function toJson() : string
+    public function toJson(): string
     {
         $array = $this->toArray();
         return (string) json_encode($array);

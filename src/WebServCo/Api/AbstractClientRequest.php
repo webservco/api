@@ -30,22 +30,22 @@ abstract class AbstractClientRequest
         }
     }
 
-    protected function throwInvalidException(string $item) : void
+    protected function throwInvalidException(string $item): void
     {
         throw new ApiException(sprintf(self::MSG_TPL_INVALID, $item));
     }
 
-    protected function throwMaximumLengthException(string $item, int $maximumLength) : void
+    protected function throwMaximumLengthException(string $item, int $maximumLength): void
     {
         throw new ApiException(sprintf(self::MSG_TPL_MAXIMUM_LENGTH, $item, $maximumLength));
     }
 
-    protected function throwRequiredException(string $item) : void
+    protected function throwRequiredException(string $item): void
     {
         throw new ApiException(sprintf(self::MSG_TPL_REQUIRED, $item));
     }
 
-    protected function verify() : bool
+    protected function verify(): bool
     {
         $this->verifyContentType();
         if ($this->processRequestData) {
@@ -54,7 +54,7 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyContentType() : bool
+    protected function verifyContentType(): bool
     {
         $contentType = $this->request->getContentType();
         $parts = explode(';', (string) $contentType);
@@ -66,7 +66,7 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyRequestData() : bool
+    protected function verifyRequestData(): bool
     {
         if (!is_array($this->requestData)) {
             $this->throwInvalidException('root object');
@@ -106,7 +106,7 @@ abstract class AbstractClientRequest
     /**
     * @param array<string,mixed> $data
     */
-    protected function verifyData(array $data) : bool
+    protected function verifyData(array $data): bool
     {
         foreach (['type', 'attributes'] as $item) {
             if (!isset($data[$item])) {
@@ -123,7 +123,7 @@ abstract class AbstractClientRequest
         return true;
     }
 
-    protected function verifyMeta() : bool
+    protected function verifyMeta(): bool
     {
         if (isset($this->requestData['meta'])) { // meta is optional
             if (!is_array($this->requestData['meta'])) {

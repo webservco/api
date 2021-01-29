@@ -40,25 +40,25 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         $this->statusCode = 200;
     }
 
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
 
-    public function setData(ResourceObjectInterface $resourceObject) : bool
+    public function setData(ResourceObjectInterface $resourceObject): bool
     {
         $this->data[] = $resourceObject;
         return true;
     }
 
-    public function setError(Error $error) : bool
+    public function setError(Error $error): bool
     {
         $this->errors[] = $error;
         $this->statusCode = $error->getStatus(); // set status code of last error.
         return true;
     }
 
-    public function setStatusCode(int $statusCode) : bool
+    public function setStatusCode(int $statusCode): bool
     {
         $this->statusCode = $statusCode;
         return true;
@@ -67,7 +67,7 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     /**
     * @return array<string,mixed>
     */
-    public function toArray() : array
+    public function toArray(): array
     {
         $array = [
             'jsonapi' => $this->jsonapi,
@@ -92,7 +92,7 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         return $array;
     }
 
-    public function toJson() : string
+    public function toJson(): string
     {
         $array = $this->toArray();
         return (string) json_encode($array);
