@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\Api\Exceptions;
 
 class ApiException extends \WebServCo\Framework\Exceptions\HttpException

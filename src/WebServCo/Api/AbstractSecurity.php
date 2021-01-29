@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\Api;
 
 use WebServCo\Framework\Exceptions\NotImplementedException;
