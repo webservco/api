@@ -9,6 +9,7 @@ use WebServCo\Framework\Http\Response;
 abstract class AbstractResponse
 {
     protected string $endpoint;
+
     /**
     * @var mixed
     */
