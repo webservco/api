@@ -7,6 +7,7 @@ use WebServCo\Api\JsonApi\Document;
 
 final class DocumentTest extends TestCase
 {
+
     /**
      * @test
      */

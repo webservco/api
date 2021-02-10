@@ -4,9 +4,10 @@ namespace WebServCo\Api\Exceptions;
 
 class ApiException extends \WebServCo\Framework\Exceptions\HttpException
 {
+
     const CODE = 400;
 
-    public function __construct(string $message, int $code = self::CODE, \Exception $previous = null)
+    public function __construct(string $message, int $code = self::CODE, ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

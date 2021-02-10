@@ -4,11 +4,12 @@ namespace WebServCo\Api\JsonApi;
 
 final class Error
 {
+
     protected string $id;
 
     /**
-    * @var array<string,string>
-    */
+     * @var array<string,string>
+     */
     protected array $links;
 
     protected int $status;
@@ -22,8 +23,8 @@ final class Error
     protected string $source;
 
     /**
-    * @var array<string,int|string>
-    */
+     * @var array<string,int|string>
+     */
     protected array $meta;
 
     public function __construct()
@@ -66,10 +67,12 @@ final class Error
     public function toArray(): array
     {
         $array = [];
-        foreach (get_object_vars($this) as $key => $value) {
-            if (!empty($value)) {
-                $array[$key] = $value;
+        foreach (\get_object_vars($this) as $key => $value) {
+            if (empty($value)) {
+                continue;
             }
+
+            $array[$key] = $value;
         }
         return $array;
     }

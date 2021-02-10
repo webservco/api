@@ -6,11 +6,12 @@ use WebServCo\Framework\Http\Response;
 
 abstract class AbstractResponse
 {
+
     protected string $endpoint;
 
     /**
-    * @var mixed
-    */
+     * @var mixed
+     */
     protected $data;
 
     protected string $method;
@@ -25,9 +26,11 @@ abstract class AbstractResponse
         $this->method = $method;
         $this->response = $response;
         $this->status = $this->response->getStatus();
-        if (!in_array($this->status, [204, 205])) { // In some situations there is no content to process
-            $this->data = $this->processResponseData();
+        if (\in_array($this->status, [204, 205])) {
+            return;
         }
+        // In some situations there is no content to process
+        $this->data = $this->processResponseData();
     }
 
     /**
@@ -60,26 +63,26 @@ abstract class AbstractResponse
     {
         $responseContent = $this->response->getContent();
         $contentType = $this->response->getHeaderLine('content-type');
-        $parts = explode(';', $contentType);
+        $parts = \explode(';', $contentType);
 
         switch ($parts[0]) {
             case 'application/json':
             case 'text/json':
-                return json_decode($responseContent, true);
+                return \json_decode($responseContent, true);
             case 'application/x-www-form-urlencoded':
-                if (false === strpos($responseContent, '=')) {
+                if (false === \strpos($responseContent, '=')) {
                     /* Sometimes Discogs returns text/plain with this content type ... */
                     return $responseContent;
                 }
                 $data = [];
-                parse_str($responseContent, $data);
+                \parse_str($responseContent, $data);
                 return $data;
             case 'text/plain':
             case 'text/html':
                 return $responseContent;
             default:
                 throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
-                    sprintf('Api returned unsupported content type: %s.', (string) $contentType)
+                    \sprintf('Api returned unsupported content type: %s.', (string) $contentType)
                 );
         }
     }

@@ -4,6 +4,7 @@ namespace WebServCo\Api\JsonApi;
 
 class Response extends \WebServCo\Framework\Http\Response
 {
+
     public function __construct(Document $document)
     {
         parent::__construct(

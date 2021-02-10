@@ -2,35 +2,31 @@
 
 namespace WebServCo\Api\JsonApi;
 
-use WebServCo\Api\JsonApi\Error;
 use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
 
 class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 {
-    /**
-    * @var array<string,int|string>
-    */
-    protected array $meta;
-
-    /**
-    * @var array<string,string>
-    */
-    protected array $jsonapi;
-
-    /**
-    * @var array<int,ResourceObjectInterface>
-    */
-    protected array $data;
-
-    /**
-    * @var array<int,Error>
-    */
-    protected array $errors;
-
-    protected int $statusCode;
 
     const CONTENT_TYPE = 'application/vnd.api+json';
     const VERSION = '1.0';
+
+    /**
+     * @var array<string,int|string>
+     */
+    protected array $meta;
+
+    /**
+     * @var array<string,string>
+     */
+    protected array $jsonapi;
+
+    /** @var array<int, \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface> */
+    protected array $data;
+
+    /** @var array<int, \WebServCo\Api\JsonApi\Error> */
+    protected array $errors;
+
+    protected int $statusCode;
 
     public function __construct()
     {
@@ -81,7 +77,7 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
                 $array['errors'][] = $error->toArray();
             }
         } else {
-            $dataItems = count($this->data);
+            $dataItems = \count($this->data);
             if (1 < $dataItems) {
                 foreach ($this->data as $item) {
                     $array['data'][] = $item->toArray();
@@ -96,6 +92,6 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     public function toJson(): string
     {
         $array = $this->toArray();
-        return (string) json_encode($array);
+        return (string) \json_encode($array);
     }
 }

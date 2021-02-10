@@ -6,23 +6,24 @@ abstract class AbstractResourceObject implements
     \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface,
     \WebServCo\Framework\Interfaces\JsonInterface
 {
+
     protected string $type;
 
     protected string $id;
 
     /**
-    * @var array<string,array<string,int|string>|string>
-    */
+     * @var array<string,array<string,int|string>|string>
+     */
     protected array $attributes;
 
     /**
-    * @var array<string,string>
-    */
+     * @var array<string,string>
+     */
     protected array $links;
 
     /**
-    * @var array<string,int|string>
-    */
+     * @var array<string,int|string>
+     */
     protected array $meta;
 
     public function __construct()
@@ -33,13 +34,12 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @param string $key
     * @return array<string,int|string>|string
     */
     public function getAttribute(string $key)
     {
-        if (!array_key_exists($key, $this->attributes)) {
-            throw new \InvalidArgumentException(sprintf('Attribute not found: %s', $key));
+        if (!\array_key_exists($key, $this->attributes)) {
+            throw new \InvalidArgumentException(\sprintf('Attribute not found: %s', $key));
         }
         return $this->attributes[$key];
     }
@@ -50,13 +50,12 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @param string $key
     * @return int|string
     */
     public function getMeta(string $key)
     {
-        if (!array_key_exists($key, $this->meta)) {
-            throw new \InvalidArgumentException(sprintf('Meta not found: %s', $key));
+        if (!\array_key_exists($key, $this->meta)) {
+            throw new \InvalidArgumentException(\sprintf('Meta not found: %s', $key));
         }
         return $this->meta[$key];
     }
@@ -74,9 +73,7 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @param string $key
     * @param array<string,int|string>|string $value
-    * @return bool
     */
     public function setAttribute(string $key, $value): bool
     {
@@ -91,7 +88,6 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @param string $key
     * @param int|string $value
     */
     public function setMeta(string $key, $value): bool
@@ -124,6 +120,6 @@ abstract class AbstractResourceObject implements
     public function toJson(): string
     {
         $array = $this->toArray();
-        return (string) json_encode($array);
+        return (string) \json_encode($array);
     }
 }

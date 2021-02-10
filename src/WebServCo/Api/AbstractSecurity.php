@@ -8,19 +8,20 @@ use WebServCo\Framework\Interfaces\RequestInterface;
 
 abstract class AbstractSecurity
 {
+
     /**
-    * @var array<int,string>
-    */
+     * @var array<int,string>
+     */
     protected array $allowedMethods;
 
     /**
-    * @var array<int|string,string>
-    */
+     * @var array<int|string,string>
+     */
     protected array $clientContentTypes;
 
     /**
-    * @var array<int|string,string>
-    */
+     * @var array<int|string,string>
+     */
     protected array $supportedContentTypes;
 
     protected RequestInterface $request;
@@ -34,9 +35,11 @@ abstract class AbstractSecurity
         $this->request = $request;
 
         $this->clientContentTypes = $this->request->getAcceptContentTypes();
-        if (is_array($this->clientContentTypes) && array_key_exists(0, $this->clientContentTypes)) {
-            unset($this->clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
+        if (!\is_array($this->clientContentTypes) || !\array_key_exists(0, $this->clientContentTypes)) {
+            return;
         }
+
+        unset($this->clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
     }
 
     public function verify(): bool
@@ -57,7 +60,6 @@ abstract class AbstractSecurity
 
     /**
     * @param array<int,string> $allowedMethods
-    * @return bool
     */
     public function setAllowedMethods(array $allowedMethods): bool
     {
@@ -67,7 +69,6 @@ abstract class AbstractSecurity
 
     /**
     * @param array<int|string,string> $supportedContentTypes
-    * @return bool
     */
     public function setSupportedContentTypes(array $supportedContentTypes): bool
     {
@@ -84,7 +85,7 @@ abstract class AbstractSecurity
         if (empty($this->clientContentTypes)) {
             throw new RequiredArgumentException('Missing client content type');
         }
-        $intersection = array_intersect($this->clientContentTypes, $this->supportedContentTypes);
+        $intersection = \array_intersect($this->clientContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
         }
@@ -96,7 +97,7 @@ abstract class AbstractSecurity
         if (empty($this->allowedMethods)) {
             throw new NotImplementedException('Method not implemented');
         }
-        if (!in_array($this->request->getMethod(), $this->allowedMethods)) {
+        if (!\in_array($this->request->getMethod(), $this->allowedMethods)) {
             throw new \WebServCo\Framework\Exceptions\MethodNotAllowedException('Unsupported method');
         }
         return true;
@@ -105,7 +106,7 @@ abstract class AbstractSecurity
     protected function verifySsl(): bool
     {
         $schema = $this->request->getSchema();
-        if ('https' != $schema) {
+        if ('https' !== $schema) {
             throw new \WebServCo\Framework\Exceptions\SslRequiredException('SSL required');
         }
         return true;
