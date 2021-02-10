@@ -10,6 +10,8 @@ abstract class AbstractResponse
     protected string $endpoint;
 
     /**
+     * Data.
+     *
      * @var mixed
      */
     protected $data;
@@ -26,7 +28,7 @@ abstract class AbstractResponse
         $this->method = $method;
         $this->response = $response;
         $this->status = $this->response->getStatus();
-        if (\in_array($this->status, [204, 205])) {
+        if (\in_array($this->status, [204, 205], true)) {
             return;
         }
         // In some situations there is no content to process

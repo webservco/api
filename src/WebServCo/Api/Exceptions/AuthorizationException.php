@@ -5,8 +5,8 @@ namespace WebServCo\Api\Exceptions;
 final class AuthorizationException extends ApiException
 {
 
-    const CODE = 401;
-    const ERROR_CODE = 'authorization_exception';
+    public const CODE = 401;
+    public const ERROR_CODE = 'authorization_exception';
 
     public function __construct(string $message, ?\Throwable $previous = null)
     {

@@ -7,23 +7,35 @@ use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
 class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 {
 
-    const CONTENT_TYPE = 'application/vnd.api+json';
-    const VERSION = '1.0';
+    public const CONTENT_TYPE = 'application/vnd.api+json';
+    public const VERSION = '1.0';
 
     /**
+     * Meta.
+     *
      * @var array<string,int|string>
      */
     protected array $meta;
 
     /**
+     * JSON API
+     *
      * @var array<string,string>
      */
     protected array $jsonapi;
 
-    /** @var array<int, \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface> */
+    /**
+    * Data.
+    *
+    * @var array<int, \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface>
+    */
     protected array $data;
 
-    /** @var array<int, \WebServCo\Api\JsonApi\Error> */
+    /**
+    * Errors.
+    *
+    * @var array<int,\WebServCo\Api\JsonApi\Error>
+    */
     protected array $errors;
 
     protected int $statusCode;

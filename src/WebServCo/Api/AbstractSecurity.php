@@ -10,16 +10,22 @@ abstract class AbstractSecurity
 {
 
     /**
+     * Allowed methods.
+     *
      * @var array<int,string>
      */
     protected array $allowedMethods;
 
     /**
+     * Client content types.
+     *
      * @var array<int|string,string>
      */
     protected array $clientContentTypes;
 
     /**
+     * Supported content types
+     *
      * @var array<int|string,string>
      */
     protected array $supportedContentTypes;
@@ -97,7 +103,7 @@ abstract class AbstractSecurity
         if (empty($this->allowedMethods)) {
             throw new NotImplementedException('Method not implemented');
         }
-        if (!\in_array($this->request->getMethod(), $this->allowedMethods)) {
+        if (!\in_array($this->request->getMethod(), $this->allowedMethods, true)) {
             throw new \WebServCo\Framework\Exceptions\MethodNotAllowedException('Unsupported method');
         }
         return true;

@@ -8,6 +8,8 @@ final class Error
     protected string $id;
 
     /**
+     * Links
+     *
      * @var array<string,string>
      */
     protected array $links;
@@ -23,6 +25,8 @@ final class Error
     protected string $source;
 
     /**
+     * Meta
+     *
      * @var array<string,int|string>
      */
     protected array $meta;

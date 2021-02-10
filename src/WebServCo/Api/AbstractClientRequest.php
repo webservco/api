@@ -12,13 +12,15 @@ abstract class AbstractClientRequest
     protected RequestInterface $request;
     protected bool $processRequestData;
     /**
+    * Request data.
+    *
     * @var array<mixed>
     */
     protected array $requestData;
 
-    const MSG_TPL_INVALID = 'Invalid data: %s';
-    const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s: %s';
-    const MSG_TPL_REQUIRED = 'Missing required data: %s';
+    public const MSG_TPL_INVALID = 'Invalid data: %s';
+    public const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s: %s';
+    public const MSG_TPL_REQUIRED = 'Missing required data: %s';
 
     public function __construct(RequestInterface $request)
     {

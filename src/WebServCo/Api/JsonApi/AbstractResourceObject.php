@@ -12,16 +12,22 @@ abstract class AbstractResourceObject implements
     protected string $id;
 
     /**
+     * Attributes.
+     *
      * @var array<string,array<string,int|string>|string>
      */
     protected array $attributes;
 
     /**
+     * Links.
+     *
      * @var array<string,string>
      */
     protected array $links;
 
     /**
+     * Meta.
+     *
      * @var array<string,int|string>
      */
     protected array $meta;
