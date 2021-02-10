@@ -19,7 +19,10 @@
         "webservco/framework" : "v10.x-dev"
     },
     "require-dev" : {
-        "phpunit/phpunit" : "~9"
+        "phpunit/phpunit" : "~9",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "php-parallel-lint/php-console-highlighter": "^0.5.0",
+        "slevomat/coding-standard": "^6.4"
     },
     "suggest" : {
         "pds/skeleton" : "A standard filesystem skeleton suitable for all PHP packages.",
@@ -33,18 +36,14 @@
         }
     },
     "scripts" : {
-        "test" : "vendor/bin/phpunit --colors=always",
-        "test:d" : "vendor/bin/phpunit --testdox",
+        "all": "clear && composer s:8 && composer check && composer test",
+        "check" : "phpcs --standard=php-coding-standard.xml --extensions=php -sp src tests",
         "check:structure" : "pds-skeleton validate .",
-        "check" : "phpcs --standard=PSR2 --extensions=php src tests",
-        "s:1": "phpstan analyse src tests --level=1 --ansi -c phpstan.neon",
-        "s:2": "phpstan analyse src tests --level=2 --ansi -c phpstan.neon",
-        "s:3": "phpstan analyse src tests --level=3 --ansi -c phpstan.neon",
-        "s:4": "phpstan analyse src tests --level=4 --ansi -c phpstan.neon",
         "s:5": "phpstan analyse src tests --level=5 --ansi -c phpstan.neon",
         "s:6": "phpstan analyse src tests --level=6 --ansi -c phpstan.neon",
         "s:7": "phpstan analyse src tests --level=7 --ansi -c phpstan.neon",
         "s:8": "phpstan analyse src tests --level=8 --ansi -c phpstan.neon",
-        "all": "clear && composer s:8 && composer check && composer test"
+        "test" : "vendor/bin/phpunit --colors=always",
+        "test:d" : "vendor/bin/phpunit --testdox"
     }
 }

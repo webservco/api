@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ruleset name="WebServCo">
+	<description>A custom coding standard based on PSR2</description>
+	<rule ref="PSR2"></rule>
+	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"><!-- relative path to your ruleset.xml -->
+		<!-- TODO investigate (seems to be a bug / conflict with won rules) -->
+		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountAfterLastUse" />
+		<!-- TODO investigate (seems to conflict with own rules and also with PSR2) -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure" />
+		<!-- TODO investigate (conflicts with SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure) -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountAfterLastControlStructure" />
+		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator" />
+		<!-- TODO investigate (if fix code, opposite error happens) -->
+		<exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison.DisallowedYodaComparison" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn.UselessIfCondition" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowEmpty.DisallowedEmpty" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName" />
+		<!-- TODO investigate -->
+		<exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint" />
+		<!-- Conflicts with PSR2 -->
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace" />
+		<!-- Conflicts with PSR2 -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountAfterControlStructure" />
+		<!-- Too cutting edge for projects using older PHP version -->
+		<exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall.MissingTrailingComma" />
+		<!-- "Reports use of superfluous prefix or suffix "Abstract" for abstract classes." -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousPrefix" />
+		<!--"Reports use of superfluous suffix "Trait" for traits." -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming.SuperfluousSuffix" />
+		<!-- "Superfluous suffix "Exception"." -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix" />
+		<!-- "Superfluous suffix "Error"." -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousErrorNaming.SuperfluousSuffix" />
+		<!-- Superfluous suffix "Interface". -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix" />
+		<!-- "This sniff reduces confusion [..]" -->
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException" />
+		<!-- Opposite error if fixed -->
+		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses" />
+		<!-- Opposite error if fixed -->
+		<exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction.DisallowedArrowFunction" />
+		<!-- Special situation for I18nHelper -->
+		<exclude name="SlevomatCodingStandard.Namespaces.NamespaceDeclaration.DisallowedBracketedSyntax" />
+		<properties>
+			<!-- Namespaces that are allowed to be `use`d -->
+			<property name="namespacesRequiredToUse" type="array">
+				<element key="1" value="PHPUnit"/>
+				<element key="2" value="WebServCo"/>
+			</property>
+			<!-- SlevomatCodingStandard.Files.TypeNameMatchesFileName -->
+			<property name="rootNamespaces" type="array">
+				<element key="src/WebServCo" value="WebServCo"/>
+				<element key="tests/unit/WebServCo" value="Tests"/>
+			</property>
+			<!-- "allows using fully qualified classes from global space (i.e. \DateTimeImmutable)". -->
+			<property name="allowFullyQualifiedGlobalClasses" value="true" />
+			<!-- "allows using fully qualified functions from global space (i.e. \phpversion())". -->
+			<property name="allowFullyQualifiedGlobalFunctions" value="true" />
+			<property name="maxLineLength" value="120" />
+			<property name="ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach" value="true" />
+		</properties>
+	</rule>
+</ruleset>
