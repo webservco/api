@@ -86,7 +86,7 @@ abstract class AbstractResponse
                 return $responseContent;
             default:
                 throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
-                    \sprintf('Api returned unsupported content type: %s.', (string) $contentType)
+                    \sprintf('Api returned unsupported content type: %s.', (string) $contentType),
                 );
         }
     }

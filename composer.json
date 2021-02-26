@@ -38,14 +38,14 @@
         }
     },
     "scripts" : {
-        "all": "clear && composer lint && composer s:8 && composer check && composer test",
+        "all": "clear && composer lint && composer check && composer s:8 && composer test",
         "check" : "vendor/bin/phpcs --standard=php-coding-standard.xml --extensions=php -sp src tests",
         "check:structure" : "vendor/bin/pds-skeleton validate .",
         "doc" : [
             "Composer\\Config::disableProcessTimeout",
             "clear && phpDocumentor.phar -d . --ignore vendor/ -t var/tmp/phpdoc --cache-folder var/tmp/phpdoc/.cache && browser-sync start --server 'var/tmp/phpdoc'"
         ],
-        "lint": "vendor/bin/parallel-lint .",
+        "lint": "vendor/bin/parallel-lint config public resources src tests",
         "s:8": "vendor/bin/phpstan analyse src tests --level=8 --ansi -c phpstan.neon",
         "s:strict": "clear && vendor/bin/phpstan analyse src --level=8 --ansi -c phpstan-strict.neon",
         "test" : "vendor/bin/phpunit --colors=always",

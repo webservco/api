@@ -12,7 +12,7 @@ class Response extends \WebServCo\Framework\Http\Response
         parent::__construct(
             $document->toJson(),
             $document->getStatusCode(),
-            ['Content-Type' => [Document::CONTENT_TYPE]]
+            ['Content-Type' => [Document::CONTENT_TYPE]],
         );
     }
 }

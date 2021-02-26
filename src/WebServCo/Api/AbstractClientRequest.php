@@ -69,7 +69,7 @@ abstract class AbstractClientRequest
         $parts = \explode(';', (string) $contentType);
         if (Document::CONTENT_TYPE !== $parts[0]) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
-                \sprintf('Unsupported content type: %s.', (string) $contentType)
+                \sprintf('Unsupported content type: %s.', (string) $contentType),
             );
         }
         return true;
@@ -92,7 +92,7 @@ abstract class AbstractClientRequest
         }
         if (Document::VERSION !== $this->requestData['jsonapi']['version']) {
             throw new ApiException(
-                \sprintf('Unsupported JSON API version: %s', $this->requestData['jsonapi']['version'])
+                \sprintf('Unsupported JSON API version: %s', $this->requestData['jsonapi']['version']),
             );
         }
         if (!\is_array($this->requestData['data'])) {
