@@ -16,7 +16,7 @@
     ],
     "require" : {
         "php" : "^7.4",
-        "webservco/framework" : "^10"
+        "webservco/framework" : "@dev"
     },
     "require-dev" : {
         "pds/skeleton" : "^1.0",
