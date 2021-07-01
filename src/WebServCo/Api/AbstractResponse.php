@@ -30,10 +30,10 @@ abstract class AbstractResponse
         $this->method = $method;
         $this->response = $response;
         $this->status = $this->response->getStatus();
+        // In some situations there is no content to process
         if (\in_array($this->status, [204, 205], true)) {
             return;
         }
-        // In some situations there is no content to process
         $this->data = $this->processResponseData();
     }
 
