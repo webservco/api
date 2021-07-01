@@ -2,6 +2,9 @@
 <ruleset name="WebServCo">
 	<description>A custom coding standard based on PSR12</description>
 	<rule ref="PSR12"></rule>
+	<rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
+	<rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
+	<rule ref="Squiz.NamingConventions.ValidVariableName.StringNotCamelCaps"/>
 	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"><!-- relative path to your ruleset.xml -->
 		<!-- TODO investigate (seems to be a bug / conflict with won rules) -->
 		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountAfterLastUse" />
