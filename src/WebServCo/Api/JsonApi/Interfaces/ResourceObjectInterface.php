@@ -19,8 +19,6 @@ interface ResourceObjectInterface
     */
     public function getMeta(string $key);
 
-    public function setType(string $type): bool;
-
     public function setId(string $id): bool;
 
     /**

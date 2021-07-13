@@ -9,9 +9,9 @@ abstract class AbstractResourceObject implements
     \WebServCo\Framework\Interfaces\JsonInterface
 {
 
-    protected string $type;
-
     protected string $id;
+
+    protected string $type;
 
     /**
      * Attributes.
@@ -34,8 +34,10 @@ abstract class AbstractResourceObject implements
      */
     protected array $meta;
 
-    public function __construct()
+    public function __construct(string $type)
     {
+        $this->id = ''; // id must be string, and can be ommited (for example when creating a new resource)
+        $this->type = $type;
         $this->attributes = [];
         $this->links = [];
         $this->meta = [];
@@ -68,24 +70,18 @@ abstract class AbstractResourceObject implements
         return $this->meta[$key];
     }
 
-    public function setType(string $type): bool
-    {
-        $this->type = $type;
-        return true;
-    }
-
-    public function setId(string $id): bool
-    {
-        $this->id = $id;
-        return true;
-    }
-
     /**
     * @param array<string,int|string>|string $value
     */
     public function setAttribute(string $key, $value): bool
     {
         $this->attributes[$key] = $value;
+        return true;
+    }
+
+    public function setId(string $id): bool
+    {
+        $this->id = $id;
         return true;
     }
 
