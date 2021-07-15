@@ -92,12 +92,14 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
             }
         } else {
             $dataItems = \count($this->data);
-            if (1 < $dataItems) {
+            if (1 < $dataItems) { // multiple items
                 foreach ($this->data as $item) {
                     $array['data'][] = $item->toArray();
                 }
             } else {
-                $array['data'] = $this->data[0]->toArray();
+                $array['data'] = \array_key_exists(0, $this->data)
+                    ? $this->data[0]->toArray() // one item
+                    : []; // no data
             }
         }
         return $array;

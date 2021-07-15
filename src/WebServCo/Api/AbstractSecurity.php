@@ -21,14 +21,14 @@ abstract class AbstractSecurity
     /**
      * Client content types.
      *
-     * @var array<int|string,string>
+     * @var array<string,string>
      */
     protected array $clientContentTypes;
 
     /**
      * Supported content types
      *
-     * @var array<int|string,string>
+     * @var array<int,string>
      */
     protected array $supportedContentTypes;
 
@@ -43,11 +43,13 @@ abstract class AbstractSecurity
         $this->request = $request;
 
         $this->clientContentTypes = $this->request->getAcceptContentTypes();
-        if (!\is_array($this->clientContentTypes) || !\array_key_exists(0, $this->clientContentTypes)) {
+
+        if (!\array_key_exists('q=0', $this->clientContentTypes)) {
             return;
         }
 
-        unset($this->clientContentTypes[0]); // $q == 0 means, that mime-type isn’t supported!
+        // $q == 0 means that mime-type isn’t supported!
+        unset($this->clientContentTypes['q=0']);
     }
 
     public function verify(): bool
@@ -59,7 +61,7 @@ abstract class AbstractSecurity
     }
 
     /**
-    * @return array<int|string,string>
+    * @return array<string,string>
     */
     public function getClientContentTypes(): array
     {
@@ -76,7 +78,7 @@ abstract class AbstractSecurity
     }
 
     /**
-    * @param array<int|string,string> $supportedContentTypes
+    * @param array<int,string> $supportedContentTypes
     */
     public function setSupportedContentTypes(array $supportedContentTypes): bool
     {
