@@ -36,7 +36,7 @@ abstract class AbstractClientRequest
             return;
         }
         $this->processRequestData = true;
-        $this->requestData = \json_decode($this->request->getBody(), true);
+        $this->requestData = \json_decode($this->request->getBody(), true) ?? [];
     }
 
     protected function throwInvalidException(string $item): void
