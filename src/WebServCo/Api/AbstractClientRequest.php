@@ -69,7 +69,7 @@ abstract class AbstractClientRequest
         $parts = \explode(';', (string) $contentType);
         if (Document::CONTENT_TYPE !== $parts[0]) {
             throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
-                \sprintf('Unsupported content type: %s.', (string) $contentType),
+                \sprintf('Unsupported request content type: %s.', (string) $contentType),
             );
         }
         return true;
