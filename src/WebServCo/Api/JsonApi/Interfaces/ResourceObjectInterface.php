@@ -22,7 +22,7 @@ interface ResourceObjectInterface
     public function setId(string $id): bool;
 
     /**
-    * @param array<string,int|string>|string $value
+    * @param mixed $value
     */
     public function setAttribute(string $key, $value): bool;
 
