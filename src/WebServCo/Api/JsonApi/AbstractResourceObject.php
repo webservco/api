@@ -44,7 +44,7 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @return array<string,int|string>|string
+    * @return mixed
     */
     public function getAttribute(string $key)
     {
