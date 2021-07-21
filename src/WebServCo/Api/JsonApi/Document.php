@@ -105,9 +105,9 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         return $array;
     }
 
-    public function toJson(): string
+    public function toJson(int $flags = 0): string
     {
         $array = $this->toArray();
-        return (string) \json_encode($array);
+        return (string) \json_encode($array, $flags);
     }
 }

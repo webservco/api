@@ -38,5 +38,5 @@ interface ResourceObjectInterface
     */
     public function toArray(): array;
 
-    public function toJson(): string;
+    public function toJson(int $flags = 0): string;
 }
