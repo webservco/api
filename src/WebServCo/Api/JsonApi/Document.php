@@ -29,7 +29,7 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     /**
     * Data.
     *
-    * @var array<int, \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface>
+    * @var array<int,\WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface>
     */
     protected array $data;
 
