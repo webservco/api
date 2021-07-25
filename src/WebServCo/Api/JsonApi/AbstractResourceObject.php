@@ -30,7 +30,7 @@ abstract class AbstractResourceObject implements
     /**
      * Meta.
      *
-     * @var array<string,int|string|null>
+     * @var array<string,mixed>
      */
     protected array $meta;
 
@@ -92,7 +92,7 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-    * @param int|string|null $value
+    * @param mixed $value
     */
     public function setMeta(string $key, $value): bool
     {

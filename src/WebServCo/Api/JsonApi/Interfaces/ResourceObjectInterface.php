@@ -29,7 +29,7 @@ interface ResourceObjectInterface
     public function setLink(string $key, string $value): bool;
 
     /**
-    * @param int|string $value
+    * @param mixed $value
     */
     public function setMeta(string $key, $value): bool;
 
