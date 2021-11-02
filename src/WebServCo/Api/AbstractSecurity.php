@@ -19,11 +19,11 @@ abstract class AbstractSecurity
     protected array $allowedMethods;
 
     /**
-     * Client content types.
+     * Client "Accept" content types.
      *
      * @var array<string,string>
      */
-    protected array $clientContentTypes;
+    protected array $acceptContentTypes;
 
     /**
      * Supported content types
@@ -42,14 +42,14 @@ abstract class AbstractSecurity
         $this->supportedContentTypes = [];
         $this->request = $request;
 
-        $this->clientContentTypes = $this->request->getAcceptContentTypes();
+        $this->acceptContentTypes = $this->request->getAcceptContentTypes();
 
-        if (!\array_key_exists('q=0', $this->clientContentTypes)) {
+        if (!\array_key_exists('q=0', $this->acceptContentTypes)) {
             return;
         }
 
         // $q == 0 means that mime-type isn’t supported!
-        unset($this->clientContentTypes['q=0']);
+        unset($this->acceptContentTypes['q=0']);
     }
 
     public function verify(): bool
@@ -65,7 +65,7 @@ abstract class AbstractSecurity
     */
     public function getClientContentTypes(): array
     {
-        return $this->clientContentTypes;
+        return $this->acceptContentTypes;
     }
 
     /**
@@ -91,13 +91,14 @@ abstract class AbstractSecurity
         if (empty($this->supportedContentTypes)) {
             throw new RequiredArgumentException('Missing supported content types');
         }
-        // 21.04.2020 seems this is never reached, if client sends empty accept header, it is set to "*/*"
-        if (empty($this->clientContentTypes)) {
-            throw new RequiredArgumentException('Missing client content type');
+        if (empty($this->acceptContentTypes)) {
+            throw new RequiredArgumentException('Missing "Accept" content type');
         }
-        $intersection = \array_intersect($this->clientContentTypes, $this->supportedContentTypes);
+        $intersection = \array_intersect($this->acceptContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
-            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported content type');
+            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
+                'Unsupported "Accept" content type',
+            );
         }
         return true;
     }
