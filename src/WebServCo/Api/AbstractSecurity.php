@@ -92,13 +92,11 @@ abstract class AbstractSecurity
             throw new RequiredArgumentException('Missing supported content types');
         }
         if (empty($this->acceptContentTypes)) {
-            throw new RequiredArgumentException('Missing "Accept" content type');
+            throw new RequiredArgumentException('Missing Accept content type');
         }
         $intersection = \array_intersect($this->acceptContentTypes, $this->supportedContentTypes);
         if (empty($intersection)) {
-            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException(
-                'Unsupported "Accept" content type',
-            );
+            throw new \WebServCo\Framework\Exceptions\UnsupportedMediaTypeException('Unsupported Accept content type');
         }
         return true;
     }
