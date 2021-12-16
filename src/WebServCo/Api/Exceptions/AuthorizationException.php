@@ -6,7 +6,6 @@ namespace WebServCo\Api\Exceptions;
 
 final class AuthorizationException extends ApiException
 {
-
     public const CODE = 401;
     public const ERROR_CODE = 'authorization_exception';
 

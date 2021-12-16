@@ -6,7 +6,6 @@ namespace WebServCo\Api\JsonApi\Interfaces;
 
 interface ResourceObjectInterface
 {
-
     /**
     * @return array<string,int|string>|string
     */

@@ -10,7 +10,6 @@ use WebServCo\Framework\Interfaces\RequestInterface;
 
 abstract class AbstractSecurity
 {
-
     /**
      * Allowed methods.
      *

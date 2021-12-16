@@ -6,7 +6,6 @@ namespace WebServCo\Api\JsonApi;
 
 final class Error
 {
-
     protected string $id;
 
     /**

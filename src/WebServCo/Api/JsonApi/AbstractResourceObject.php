@@ -8,7 +8,6 @@ abstract class AbstractResourceObject implements
     \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface,
     \WebServCo\Framework\Interfaces\JsonInterface
 {
-
     protected string $id;
 
     protected string $type;
