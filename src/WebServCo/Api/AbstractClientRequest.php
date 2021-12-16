@@ -36,7 +36,18 @@ abstract class AbstractClientRequest
             return;
         }
         $this->processRequestData = true;
-        $this->requestData = \json_decode($this->request->getBody(), true) ?? [];
+        try {
+            // @throws \JsonException
+            $this->requestData = \json_decode(
+                $this->request->getBody(),
+                true, // associative
+                512, // depth
+                \JSON_THROW_ON_ERROR, // flags
+            )
+            ?? [];
+        } catch (\JsonException $e) {
+            $this->throwInvalidException('root object');
+        }
     }
 
     protected function throwInvalidException(string $item): void
@@ -79,6 +90,9 @@ abstract class AbstractClientRequest
     {
         if (!\is_array($this->requestData)) {
             $this->throwInvalidException('root object');
+        }
+        if (!$this->requestData) { // check if empty array, could also mean the json vas invalid
+            $this->throwRequiredException('root object');
         }
         foreach (['jsonapi', 'data'] as $item) {
             if (isset($this->requestData[$item])) {
