@@ -10,9 +10,9 @@ use WebServCo\Framework\Interfaces\RequestInterface;
 
 abstract class AbstractClientRequest
 {
-    public const MSG_TPL_INVALID = 'Invalid data: %s';
-    public const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: %s: %s';
-    public const MSG_TPL_REQUIRED = 'Missing required data: %s';
+    public const MSG_TPL_INVALID = 'Invalid data: "%s".';
+    public const MSG_TPL_MAXIMUM_LENGTH = 'Maximum length exceeded: "%s". Limit: %s';
+    public const MSG_TPL_REQUIRED = 'Missing required data: "%s".';
 
     protected bool $allowMultipleDataObjects;
     protected RequestInterface $request;
