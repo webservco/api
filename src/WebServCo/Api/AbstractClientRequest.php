@@ -36,17 +36,27 @@ abstract class AbstractClientRequest
             return;
         }
         $this->processRequestData = true;
-        try {
-            // @throws \JsonException
-            $this->requestData = \json_decode(
-                $this->request->getBody(),
-                true, // associative
-                512, // depth
-                \JSON_THROW_ON_ERROR, // flags
-            )
-            ?? [];
-        } catch (\JsonException $e) {
-            $this->throwInvalidException('root object');
+        if ($this->request->getBody()) { // No problem if misisng, set to empty array.
+            $this->requestData = [];
+        } else {
+            // If not missing, it needs to be valid.
+            try {
+                /**
+                * @throws \JsonException
+                */
+                $requestData = \json_decode(
+                    $this->request->getBody(),
+                    true, // associative
+                    512, // depth
+                    \JSON_THROW_ON_ERROR, // flags
+                );
+                if (!\is_array($requestData)) {
+                    throw new \InvalidArgumentException('Invalid root object.');
+                }
+                $this->requestData = $requestData;
+            } catch (\Throwable $e) { // including \JsonException
+                $this->throwInvalidException('root object');
+            }
         }
     }
 
