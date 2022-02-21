@@ -36,7 +36,8 @@ abstract class AbstractClientRequest
             return;
         }
         $this->processRequestData = true;
-        if ($this->request->getBody()) { // No problem if misisng, set to empty array.
+        $requestBody = $this->request->getBody();
+        if (!$requestBody) { // No problem if misisng, set to empty array.
             $this->requestData = [];
         } else {
             // If not missing, it needs to be valid.
@@ -45,7 +46,7 @@ abstract class AbstractClientRequest
                 * @throws \JsonException
                 */
                 $requestData = \json_decode(
-                    $this->request->getBody(),
+                    $requestBody,
                     true, // associative
                     512, // depth
                     \JSON_THROW_ON_ERROR, // flags
