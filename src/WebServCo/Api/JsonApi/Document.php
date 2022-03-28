@@ -14,7 +14,7 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     /**
      * Meta.
      *
-     * @var array<string,int|string>
+     * @var array<string,mixed>
      */
     protected array $meta;
 
@@ -65,6 +65,15 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     {
         $this->errors[] = $error;
         $this->statusCode = $error->getStatus(); // set status code of last error.
+        return true;
+    }
+
+    /**
+    * @param mixed $value
+    */
+    public function setMeta(string $key, $value): bool
+    {
+        $this->meta[$key] = $value;
         return true;
     }
 
