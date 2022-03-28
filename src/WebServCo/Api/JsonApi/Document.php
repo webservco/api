@@ -91,9 +91,6 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
         $array = [
             'jsonapi' => $this->jsonapi,
         ];
-        if ($this->meta) {
-            $array['meta'] = $this->meta;
-        }
         if (!empty($this->errors)) {
             foreach ($this->errors as $error) {
                 $array['errors'][] = $error->toArray();
@@ -109,6 +106,9 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
                     ? $this->data[0]->toArray() // one item
                     : []; // no data
             }
+        }
+        if ($this->meta) {
+            $array['meta'] = $this->meta;
         }
         return $array;
     }
