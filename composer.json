@@ -38,7 +38,7 @@
         }
     },
     "scripts" : {
-        "all": "clear && composer lint && composer check && composer s:8 && composer test",
+        "all": "composer lint && composer check && composer s:8 && composer test",
         "check" : "vendor/bin/phpcs --standard=php-coding-standard.xml --extensions=php -sp src tests",
         "check:structure" : "vendor/bin/pds-skeleton validate .",
         "doc" : [
