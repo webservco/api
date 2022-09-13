@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="WebServCo">
 	<description>A custom coding standard based on PSR12</description>
+	<rule ref="PHPCompatibility"/>
+	<config name="testVersion" value="7.4-8.1"/>
 	<rule ref="PSR12"></rule>
 	<rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
 	<rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
@@ -61,6 +63,33 @@
 		<exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction.DisallowedArrowFunction" />
 		<!-- Special situation for I18nHelper -->
 		<exclude name="SlevomatCodingStandard.Namespaces.NamespaceDeclaration.DisallowedBracketedSyntax" />
+		<!-- Trailing comma after the last parameter in function call is disallowed. -->
+		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInCall.DisallowedTrailingComma" />
+
+		<!-- Ignore some stuff that will not fix -->
+
+		<!-- "Your ... is too long." -->
+		<exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength" />
+		<exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength" />
+		<exclude name="SlevomatCodingStandard.Files.FileLength.FileTooLong" />
+		<exclude name="SlevomatCodingStandard.Classes.ClassLength.ClassTooLong" />
+		<!-- "Required promotion of property $..." -->
+		<exclude name="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion.RequiredConstructorPropertyPromotion" />
+		<!-- "Multi-line function declaration must have a trailing comma after the last parameter" -->
+		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration.MissingTrailingComma" />
+		<!-- "Do not use public properties. Use method access instead." -->
+		<exclude name="SlevomatCodingStandard.Classes.ForbiddenPublicProperty.ForbiddenPublicProperty" />
+		<!-- "All classes should be declared using either the "abstract" or "final" keyword." -->
+		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal" />
+
+		<exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint" />
+		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
+		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint" />
+		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder" />
+		<exclude name="SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable" />
+		<exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
+		<exclude name="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch.NonCapturingCatchRequired" />
+
 		<properties>
 			<!-- Namespaces that are allowed to be `use`d -->
 			<property name="namespacesRequiredToUse" type="array">
