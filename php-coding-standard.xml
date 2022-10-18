@@ -2,7 +2,7 @@
 <ruleset name="WebServCo">
 	<description>A custom coding standard based on PSR12</description>
 	<rule ref="PHPCompatibility"/>
-	<config name="testVersion" value="7.4-8.1"/>
+	<config name="testVersion" value="8.1"/>
 	<rule ref="PSR12"></rule>
 	<rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
 	<rule ref="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>

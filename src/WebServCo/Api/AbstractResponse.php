@@ -10,12 +10,7 @@ abstract class AbstractResponse
 {
     protected string $endpoint;
 
-    /**
-     * Data.
-     *
-     * @var mixed
-     */
-    protected $data;
+    protected mixed $data;
 
     protected string $method;
 
@@ -36,10 +31,7 @@ abstract class AbstractResponse
         $this->data = $this->processResponseData();
     }
 
-    /**
-    * @return mixed
-    */
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
@@ -59,10 +51,7 @@ abstract class AbstractResponse
         return $this->status;
     }
 
-    /**
-    * @return mixed
-    */
-    protected function processResponseData()
+    protected function processResponseData(): mixed
     {
         $responseContent = $this->response->getContent();
         $contentType = $this->response->getHeaderLine('content-type');
