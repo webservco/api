@@ -19,11 +19,11 @@
         "webservco/framework" : "@dev"
     },
     "require-dev" : {
-        "pds/skeleton" : "^1.0",
-        "phpunit/phpunit" : "^9.5",
+        "pds/skeleton" : "^1",
+        "phpunit/phpunit" : "^9",
         "php-parallel-lint/php-parallel-lint": "^1",
         "php-parallel-lint/php-console-highlighter": "^1",
-        "phpcompatibility/php-compatibility": "@dev",
+        "phpcompatibility/php-compatibility": "^9",
         "phpstan/phpstan-strict-rules": "^1",
         "phpstan/phpstan" : "^1",
         "slevomat/coding-standard": "^8",
