@@ -41,13 +41,25 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 
     protected int $statusCode;
 
-    public function __construct()
+    protected bool $useDataItemCollection;
+
+    /**
+     * https://jsonapi.org/format/#document-top-level
+     *
+     * Primary data MUST be either:
+     * - a single resource object, a single resource identifier object, or null,
+     * for requests that target single resources
+     * - an array of resource objects, an array of resource identifier objects, or an empty array ([]),
+     * for requests that target resource collections
+     */
+    public function __construct(bool $useDataItemCollection = false)
     {
         $this->meta = [];
         $this->jsonapi = ['version' => self::VERSION];
         $this->data = [];
         $this->errors = [];
         $this->statusCode = 200;
+        $this->useDataItemCollection = $useDataItemCollection;
     }
 
     public function getStatusCode(): int
@@ -96,15 +108,15 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
                 $array['errors'][] = $error->toArray();
             }
         } else {
-            $dataItems = \count($this->data);
-            if (1 < $dataItems) { // multiple items
+            if ($this->useDataItemCollection) {
+                $array['data'] = [];
                 foreach ($this->data as $item) {
                     $array['data'][] = $item->toArray();
                 }
             } else {
                 $array['data'] = \array_key_exists(0, $this->data)
                     ? $this->data[0]->toArray() // one item
-                    : []; // no data
+                    : null; // no data
             }
         }
         if ($this->meta) {
