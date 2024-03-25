@@ -104,6 +104,7 @@ abstract class AbstractResourceObject implements
     */
     public function toArray(): array
     {
+        // phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
         $array = [
             'type' => $this->type,
             'id' => $this->id,
