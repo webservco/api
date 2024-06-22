@@ -1,9 +1,0 @@
-language: php
-dist: trusty
-php:
-        - '8.1'
-before_script:
-  - composer update
-notifications:
-        email:
-                on_success: always
