@@ -8,8 +8,8 @@ use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
 
 class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 {
-    public const CONTENT_TYPE = 'application/vnd.api+json';
-    public const VERSION = '1.0';
+    public const string CONTENT_TYPE = 'application/vnd.api+json';
+    public const string VERSION = '1.0';
 
     /**
      * Meta.
