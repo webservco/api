@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Api\JsonApi;
+namespace Tests\Unit\WebServCo\Api\JsonApi;
 
 use PHPUnit\Framework\TestCase;
 use WebServCo\Api\JsonApi\Document;

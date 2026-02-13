@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace WebServCo\Api\JsonApi;
 
+use InvalidArgumentException;
+use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
+use WebServCo\Framework\Interfaces\JsonInterface;
+
+use function array_key_exists;
+use function json_encode;
+use function sprintf;
+
 abstract class AbstractResourceObject implements
-    \WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface,
-    \WebServCo\Framework\Interfaces\JsonInterface
+    ResourceObjectInterface,
+    JsonInterface
 {
     protected string $id;
-
-    protected string $type;
 
     /**
      * Attributes.
@@ -33,23 +39,24 @@ abstract class AbstractResourceObject implements
      */
     protected array $meta;
 
-    public function __construct(string $type)
+    public function __construct(protected string $type)
     {
-        $this->id = ''; // id must be string, and can be ommited (for example when creating a new resource)
-        $this->type = $type;
+        // id must be string, and can be ommited (for example when creating a new resource)
+        $this->id = '';
         $this->attributes = [];
         $this->links = [];
         $this->meta = [];
     }
 
     /**
-    * @return mixed
-    */
-    public function getAttribute(string $key)
+     * @return array<string,int|string>|string
+     */
+    public function getAttribute(string $key): array|string
     {
-        if (!\array_key_exists($key, $this->attributes)) {
-            throw new \InvalidArgumentException(\sprintf('Attribute not found: %s', $key));
+        if (!array_key_exists($key, $this->attributes)) {
+            throw new InvalidArgumentException(sprintf('Attribute not found: %s', $key));
         }
+
         return $this->attributes[$key];
     }
 
@@ -58,44 +65,40 @@ abstract class AbstractResourceObject implements
         return $this->id;
     }
 
-    /**
-    * @return int|string|null
-    */
-    public function getMeta(string $key)
+    public function getMeta(string $key): int|string
     {
-        if (!\array_key_exists($key, $this->meta)) {
-            throw new \InvalidArgumentException(\sprintf('Meta not found: %s', $key));
+        if (!array_key_exists($key, $this->meta)) {
+            throw new InvalidArgumentException(sprintf('Meta not found: %s', $key));
         }
+
         return $this->meta[$key];
     }
 
-    /**
-    * @param mixed $value
-    */
-    public function setAttribute(string $key, $value): bool
+    public function setAttribute(string $key, mixed $value): bool
     {
         $this->attributes[$key] = $value;
+
         return true;
     }
 
     public function setId(string $id): bool
     {
         $this->id = $id;
+
         return true;
     }
 
     public function setLink(string $key, string $value): bool
     {
         $this->links[$key] = $value;
+
         return true;
     }
 
-    /**
-    * @param mixed $value
-    */
-    public function setMeta(string $key, $value): bool
+    public function setMeta(string $key, mixed $value): bool
     {
         $this->meta[$key] = $value;
+
         return true;
     }
 
@@ -118,12 +121,14 @@ abstract class AbstractResourceObject implements
         if (!empty($this->meta)) {
             $array['meta'] = $this->meta;
         }
+
         return $array;
     }
 
     public function toJson(int $flags = 0): string
     {
         $array = $this->toArray();
-        return (string) \json_encode($array, $flags);
+
+        return (string) json_encode($array, $flags);
     }
 }

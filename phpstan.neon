@@ -1,0 +1,10 @@
+parameters:
+    treatPhpDocTypesAsCertain: false
+    # level is needed here when using phpStorm (prevent error "No rules detected..")
+    level: max
+includes:
+    - %currentWorkingDirectory%/vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - %currentWorkingDirectory%/vendor/phpstan/phpstan-phpunit/extension.neon
+    - %currentWorkingDirectory%/vendor/phpstan/phpstan-phpunit/rules.neon
+    # too much for WSFW13
+    # - %currentWorkingDirectory%/vendor/phpstan/phpstan-strict-rules/rules.neon

@@ -9,28 +9,19 @@ interface ResourceObjectInterface
     /**
     * @return array<string,int|string>|string
     */
-    public function getAttribute(string $key);
+    public function getAttribute(string $key): array|string;
 
     public function getId(): string;
 
-    /**
-    * @return int|string
-    */
-    public function getMeta(string $key);
+    public function getMeta(string $key): int|string;
 
     public function setId(string $id): bool;
 
-    /**
-    * @param mixed $value
-    */
-    public function setAttribute(string $key, $value): bool;
+    public function setAttribute(string $key, mixed $value): bool;
 
     public function setLink(string $key, string $value): bool;
 
-    /**
-    * @param mixed $value
-    */
-    public function setMeta(string $key, $value): bool;
+    public function setMeta(string $key, mixed $value): bool;
 
     /**
     * @return array<string,mixed>

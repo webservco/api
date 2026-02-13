@@ -1,0 +1,39 @@
+{
+    "repositories" : [
+        {
+            "type" : "path",
+            "url" : "~/p/webservco-v13/api",
+            "options" : {
+                "symlink" : true
+            }
+        },
+        {
+            "type" : "path",
+            "url" : "~/p/webservco-v13/discogs-api",
+            "options" : {
+                "symlink" : true
+            }
+        },
+        {
+            "type" : "path",
+            "url" : "~/p/webservco-v13/discogs-auth",
+            "options" : {
+                "symlink" : true
+            }
+        },
+        {
+            "type" : "path",
+            "url" : "~/p/webservco-v13/discogs-data",
+            "options" : {
+                "symlink" : true
+            }
+        },
+        {
+            "type" : "path",
+            "url" : "~/p/webservco-v13/framework",
+            "options" : {
+                "symlink" : true
+            }
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+services:
+  web:
+    volumes:
+      - type: bind
+        # source = path on host
+        source: $HOME/p
+        # target = path in container
+        target: $HOME/p

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace WebServCo\Api\JsonApi;
 
-class Response extends \WebServCo\Framework\Http\Response
+use WebServCo\Framework\Http\Response as HttpResponse;
+
+final class Response extends HttpResponse
 {
     public function __construct(Document $document)
     {

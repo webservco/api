@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WebServCo\Api\JsonApi;
 
+use function get_object_vars;
+
 final class Error
 {
     protected string $id;
@@ -45,24 +47,28 @@ final class Error
     public function setStatus(int $status): bool
     {
         $this->status = $status;
+
         return true;
     }
 
     public function setTitle(string $title): bool
     {
         $this->title = $title;
+
         return true;
     }
 
     public function setDetail(string $detail): bool
     {
         $this->detail = $detail;
+
         return true;
     }
 
     public function setMeta(string $key, string $value): bool
     {
         $this->meta[$key] = $value;
+
         return true;
     }
 
@@ -72,13 +78,14 @@ final class Error
     public function toArray(): array
     {
         $array = [];
-        foreach (\get_object_vars($this) as $key => $value) {
+        foreach (get_object_vars($this) as $key => $value) {
             if (empty($value)) {
                 continue;
             }
 
             $array[$key] = $value;
         }
+
         return $array;
     }
 }

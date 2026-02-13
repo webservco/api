@@ -24,31 +24,53 @@
         "php-parallel-lint/php-parallel-lint": "^1",
         "php-parallel-lint/php-console-highlighter": "^1",
         "phpcompatibility/php-compatibility": "^9",
-        "phpstan/phpstan-strict-rules": "^1",
-        "phpstan/phpstan" : "^1",
+        "phpstan/phpstan-deprecation-rules": "^2",
+        "phpstan/phpstan-strict-rules": "^2",
+        "phpstan/phpstan-phpunit": "^2",
+        "phpstan/phpstan" : "^2",
         "slevomat/coding-standard": "^8",
-        "squizlabs/php_codesniffer" : "^3"
+        "squizlabs/php_codesniffer" : "^3",
+        "webservco/coding-standards": "^1",
+        "webservco/component-common": "^1"
     },
     "suggest" : {
         "phpdocumentor/phpdocumentor": "phpDocumentor v3 (global installation)"
     },
     "autoload" : {
         "psr-4" : {
-            "WebServCo\\" : "src/WebServCo/",
-            "Tests\\" : "tests/unit/WebServCo/"
+            "Tests\\Unit\\" : "tests/Unit/",
+            "WebServCo\\" : "src/WebServCo/"
         }
     },
     "scripts" : {
-        "all": "composer lint && composer check && composer s:8 && composer test",
-        "check" : "vendor/bin/phpcs --standard=php-coding-standard.xml --extensions=php -sp src tests",
-        "check:structure" : "vendor/bin/pds-skeleton validate .",
+        "check:lint": "vendor/bin/parallel-lint config public resources src",
+        "check:structure" : "pds-skeleton validate .",
+        "check:phpcs": "vendor/bin/phpcs --standard=.phpcs/php-coding-standard.xml --extensions=php -sp bin config public resources src tests",
+
+        "s:1": "vendor/bin/phpstan analyse src tests --level=1 --ansi -c phpstan.neon",
+        "s:2": "vendor/bin/phpstan analyse src tests --level=2 --ansi -c phpstan.neon",
+        "s:3": "vendor/bin/phpstan analyse src tests --level=3 --ansi -c phpstan.neon",
+        "s:4": "vendor/bin/phpstan analyse src tests --level=4 --ansi -c phpstan.neon",
+        "s:5": "vendor/bin/phpstan analyse src tests --level=5 --ansi -c phpstan.neon",
+        "s:6": "vendor/bin/phpstan analyse src tests --level=6 --ansi -c phpstan.neon",
+        "s:7": "vendor/bin/phpstan analyse src tests --level=7 --ansi -c phpstan.neon",
+        "s:8": "vendor/bin/phpstan analyse src tests --level=8 --ansi -c phpstan.neon",
+        "s:9": "vendor/bin/phpstan analyse src tests --level=9 --ansi -c phpstan.neon",
+
+        "check:phpstan": "vendor/bin/phpstan analyse bin config public resources src tests --ansi -c vendor/webservco/coding-standards/phpstan/phpstan.neon --level=max",
+
+        "check": [
+            "@check:lint",
+            "@check:phpcs",
+            "@s:1"
+        ],
+        "c": "@check",
+
         "doc" : [
             "Composer\\Config::disableProcessTimeout",
             "clear && phpDocumentor.phar -d . --ignore vendor/ -t var/tmp/phpdoc --cache-folder var/tmp/phpdoc/.cache && browser-sync start --server 'var/tmp/phpdoc'"
         ],
-        "lint": "vendor/bin/parallel-lint config public resources src tests",
-        "s:8": "vendor/bin/phpstan analyse src tests --level=8 --ansi -c phpstan.neon",
-        "s:strict": "clear && vendor/bin/phpstan analyse src --level=8 --ansi -c phpstan-strict.neon",
+
         "test" : "vendor/bin/phpunit --colors=always",
         "test:d" : "vendor/bin/phpunit --testdox"
     },

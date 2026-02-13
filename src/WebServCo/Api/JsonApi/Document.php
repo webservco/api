@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace WebServCo\Api\JsonApi;
 
 use WebServCo\Api\JsonApi\Interfaces\ResourceObjectInterface;
+use WebServCo\Framework\Interfaces\JsonInterface;
 
-class Document implements \WebServCo\Framework\Interfaces\JsonInterface
+use function array_key_exists;
+use function json_encode;
+
+final class Document implements JsonInterface
 {
     public const string CONTENT_TYPE = 'application/vnd.api+json';
     public const string VERSION = '1.0';
@@ -41,8 +45,6 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
 
     protected int $statusCode;
 
-    protected bool $useDataItemCollection;
-
     /**
      * https://jsonapi.org/format/#document-top-level
      *
@@ -52,14 +54,13 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
      * - an array of resource objects, an array of resource identifier objects, or an empty array ([]),
      * for requests that target resource collections
      */
-    public function __construct(bool $useDataItemCollection = false)
+    public function __construct(protected bool $useDataItemCollection = false)
     {
         $this->meta = [];
         $this->jsonapi = ['version' => self::VERSION];
         $this->data = [];
         $this->errors = [];
         $this->statusCode = 200;
-        $this->useDataItemCollection = $useDataItemCollection;
     }
 
     public function getStatusCode(): int
@@ -70,28 +71,30 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
     public function setData(ResourceObjectInterface $resourceObject): bool
     {
         $this->data[] = $resourceObject;
+
         return true;
     }
 
     public function setError(Error $error): bool
     {
         $this->errors[] = $error;
-        $this->statusCode = $error->getStatus(); // set status code of last error.
+        // set status code of last error.
+        $this->statusCode = $error->getStatus();
+
         return true;
     }
 
-    /**
-    * @param mixed $value
-    */
-    public function setMeta(string $key, $value): bool
+    public function setMeta(string $key, mixed $value): bool
     {
         $this->meta[$key] = $value;
+
         return true;
     }
 
     public function setStatusCode(int $statusCode): bool
     {
         $this->statusCode = $statusCode;
+
         return true;
     }
 
@@ -114,20 +117,24 @@ class Document implements \WebServCo\Framework\Interfaces\JsonInterface
                     $array['data'][] = $item->toArray();
                 }
             } else {
-                $array['data'] = \array_key_exists(0, $this->data)
-                    ? $this->data[0]->toArray() // one item
-                    : null; // no data
+                $array['data'] = array_key_exists(0, $this->data)
+                    // one item
+                    ? $this->data[0]->toArray()
+                    // no data
+                    : null;
             }
         }
         if ($this->meta) {
             $array['meta'] = $this->meta;
         }
+
         return $array;
     }
 
     public function toJson(int $flags = 0): string
     {
         $array = $this->toArray();
-        return (string) \json_encode($array, $flags);
+
+        return (string) json_encode($array, $flags);
     }
 }
