@@ -21,7 +21,7 @@ abstract class AbstractResourceObject implements
     /**
      * Attributes.
      *
-     * @var array<string,array<string,int|string>|string>
+     * @var array<string,array<mixed>|string|null>
      */
     protected array $attributes;
 
@@ -49,9 +49,9 @@ abstract class AbstractResourceObject implements
     }
 
     /**
-     * @return array<mixed>|string
+     * @return array<mixed>|string|null
      */
-    public function getAttribute(string $key): array|string
+    public function getAttribute(string $key): array|string|null
     {
         if (!array_key_exists($key, $this->attributes)) {
             throw new InvalidArgumentException(sprintf('Attribute not found: %s', $key));

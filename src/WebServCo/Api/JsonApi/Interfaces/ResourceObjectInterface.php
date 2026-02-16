@@ -7,9 +7,9 @@ namespace WebServCo\Api\JsonApi\Interfaces;
 interface ResourceObjectInterface
 {
     /**
-    * @return array<string,int|string>|string
+    * @return array<string,int|string>|string|null
     */
-    public function getAttribute(string $key): array|string;
+    public function getAttribute(string $key): array|string|null;
 
     public function getId(): string;
 
