@@ -21,7 +21,7 @@ abstract class AbstractResourceObject implements
     /**
      * Attributes.
      *
-     * @var array<string,array<mixed>|string|null>
+     * @var array<string,mixed>
      */
     protected array $attributes;
 
@@ -41,17 +41,14 @@ abstract class AbstractResourceObject implements
 
     public function __construct(protected string $type)
     {
-        // id must be string, and can be ommited (for example when creating a new resource)
+        // id must be string, and can be omitted (for example when creating a new resource)
         $this->id = '';
         $this->attributes = [];
         $this->links = [];
         $this->meta = [];
     }
 
-    /**
-     * @return array<mixed>|string|null
-     */
-    public function getAttribute(string $key): array|string|null
+    public function getAttribute(string $key): mixed
     {
         if (!array_key_exists($key, $this->attributes)) {
             throw new InvalidArgumentException(sprintf('Attribute not found: %s', $key));
