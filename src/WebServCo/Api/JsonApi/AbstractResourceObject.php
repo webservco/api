@@ -62,7 +62,7 @@ abstract class AbstractResourceObject implements
         return $this->id;
     }
 
-    public function getMeta(string $key): int|string
+    public function getMeta(string $key): mixed
     {
         if (!array_key_exists($key, $this->meta)) {
             throw new InvalidArgumentException(sprintf('Meta not found: %s', $key));

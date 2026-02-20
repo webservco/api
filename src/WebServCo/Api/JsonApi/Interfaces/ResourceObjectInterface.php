@@ -10,7 +10,7 @@ interface ResourceObjectInterface
 
     public function getId(): string;
 
-    public function getMeta(string $key): int|string;
+    public function getMeta(string $key): mixed;
 
     public function setId(string $id): bool;
 
