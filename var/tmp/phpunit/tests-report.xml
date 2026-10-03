@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/var/www/html/vendor/webservco/coding-standards/phpunit/phpunit-13.xml" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.000653">
+    <testsuite name="unit" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.000653">
+      <testsuite name="Tests\Unit\WebServCo\Api\JsonApi\DocumentTest" file="/var/www/html/tests/Unit/WebServCo/Api/JsonApi/DocumentTest.php" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="0.000582">
+        <testcase name="constantContentTypeHasExpectedValue" file="/var/www/html/tests/Unit/WebServCo/Api/JsonApi/DocumentTest.php" line="14" class="Tests\Unit\WebServCo\Api\JsonApi\DocumentTest" classname="Tests.Unit.WebServCo.Api.JsonApi.DocumentTest" assertions="1" time="0.000505"/>
+        <testcase name="constantVersionHasExpectedValue" file="/var/www/html/tests/Unit/WebServCo/Api/JsonApi/DocumentTest.php" line="20" class="Tests\Unit\WebServCo\Api\JsonApi\DocumentTest" classname="Tests.Unit.WebServCo.Api.JsonApi.DocumentTest" assertions="1" time="0.000078"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\WebServCo\Test\Test" file="/var/www/html/tests/Unit/WebServCo/Test/Test.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.000071">
+        <testcase name="dummyPassingTest" file="/var/www/html/tests/Unit/WebServCo/Test/Test.php" line="13" class="Tests\Unit\WebServCo\Test\Test" classname="Tests.Unit.WebServCo.Test.Test" assertions="1" time="0.000071"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
