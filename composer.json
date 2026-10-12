@@ -1,7 +1,7 @@
 {
     "name" : "webservco/api",
     "type" : "library",
-    "description" : "A PHP RESTful API Framework",
+    "description" : "A PHP library for webservco/framework. Base classes for building JSON:API endpoints and for reading responses from third-party APIs.",
     "keywords" : [
         "framework",
         "webservco"
